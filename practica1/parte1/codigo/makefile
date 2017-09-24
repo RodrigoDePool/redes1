@@ -8,7 +8,7 @@
 CC = gcc
 #ifdef ENTREGA
 CFLAGS = -Wall -g -I .
-LDLIBS = -lm 
+LDLIBS = -lm
 #else
 CFLAGS = -Wall -g -I .
 #-DENTREGA
@@ -27,7 +27,7 @@ DEPS = $(shell echo $(SOURCES) | sed -e 's:\.c[p]*:\.d:g')
 
 all:	practica1
 
-practica1:	practica1.o
+practica1:	practica1.o 
 
 # receta para hacer un .d (dependencias automaticas de tipo .h para tus .o)
 %.d : %.c
@@ -51,7 +51,7 @@ practica1:	practica1.o
 	@echo [OK]
 
 # limpieza
-clean:	
+clean:
 	@rm -f $(wildcard *.o *.d core* *.P) $(EXECS)
 
 # ayuda (nunca viene mal)
