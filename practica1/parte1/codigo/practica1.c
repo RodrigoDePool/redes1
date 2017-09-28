@@ -113,8 +113,7 @@ int ini(int argc, char **argv){
 
 	 /* Distinguimos abrir interfaz/traza */
 	if(argc == 2){
-		/*INTERFAZ LUCIA enp4s0*/
-		descr = pcap_open_live("wlp3s0",ETH_FRAME_MAX,0,100, errbuf);
+		descr = pcap_open_live("eth0",ETH_FRAME_MAX,0,100, errbuf);
 		if (descr == NULL){
 			printf("Error: pcap_open_live(): %s, %s %d.\n",errbuf,__FILE__,__LINE__);
 			return ERROR;
