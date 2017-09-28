@@ -1,0 +1,7 @@
+Lucia Asencio Martin
+Rodrigo de Pool Alcantara
+
+Adjuntamos en el documento practica1.pdf las respuestas a las cuestiones
+de la practica 0 y una breve explicacion acerca de las pruebas realizadas en la practica 1.
+
+La traza utilizada para probar nuestro programa se adjunta en practica1.pcap, para la realizacion de la parte 0 suministramos capturas de pantalla en el pdf. 
