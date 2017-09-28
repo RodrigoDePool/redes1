@@ -9,24 +9,6 @@
 #include <time.h>
 #include "practica1.h"
 
-/*******
-	ESQUEMA MENTAL;
-	Caso live:
-	descr1 = open_live;
-	descr2 = open dead; descr3 = dump_open(descr2); <--- PARA VOLCAR TRAZA
-	Caso offline:
-	descr1 = open_offline;
-
-	En ambos casos:
-	Empiezo a leer y a imprimir con pcapNext.
-	Cuento numero de paquetes
-
-	Lo que diferencia los dos casos es cuando paro de leer y muestro num paquetes
-	Caso live: sigint --> POR TANTO, numPaquetes global
-	Caso offline: pcapNext == -2 :D
-
-******/
-
 
 /* Global vars */
 pcap_t *descr=NULL,*descr2=NULL;
@@ -84,8 +66,7 @@ int main(int argc, char **argv){
 			if(argc == 2){
 				sumar_dos(cabecera);
 				pcap_dump((uint8_t *)pdumper,cabecera,paquete);
-			}
-			printf("Paquete %d:\n",nPaquetes);
+			}			
 			imprime_paquete(paquete,cabecera,nBytes);
 		}
 	}
@@ -118,7 +99,6 @@ int ini(int argc, char **argv){
 		return ERROR;
 	}
 
-	/*EN AMBOS CASOS ??? O SOLO CUANDO ES LIVE ???*/
 	if(signal(SIGINT,handle)==SIG_ERR){
 		printf("Error: Fallo al capturar la senal SIGINT.\n");
 		return ERROR;
@@ -187,6 +167,7 @@ void imprime_paquete(uint8_t *paquete,struct pcap_pkthdr *cabecera, long int nby
 	if(paquete == NULL || cabecera == NULL) return;
 	/*Minimo entre bytes totales y solicitados*/
 	if(cabecera->caplen < min) min = cabecera->caplen;
+	printf("Paquete %d:\n",nPaquetes);
 	for(i=0; i<min ; i++)
 		printf("%02x ",paquete[i]);
 	printf("\n\n");
