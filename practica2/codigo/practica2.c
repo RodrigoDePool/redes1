@@ -17,8 +17,8 @@
 
 pcap_t *descr = NULL;
 uint64_t contador = 0;
-uint8_t ipsrc_filter[IP_ALEN] = {NO_FILTER};
-uint8_t ipdst_filter[IP_ALEN] = {NO_FILTER};
+uint8_t ipsrc_filter[IP_ALEN] = "";
+uint8_t ipdst_filter[IP_ALEN] = "";
 uint16_t sport_filter= NO_FILTER;
 uint16_t dport_filter = NO_FILTER;
 
@@ -28,7 +28,7 @@ uint16_t dport_filter = NO_FILTER;
 void handleSignal(int nsignal)
 {
 	printf("Control C pulsado (%"PRIu64" paquetes leidos)\n", contador);
-	pcap_close(descr);/*ESTO SE MANTIENE??*/
+	pcap_close(descr);
 	exit(OK);
 }
 
@@ -51,15 +51,16 @@ void mensajeFormatoError(){
 */
 int init(int argc, char **argv);
 
+/*
+*	Imprime los filtros que se han establecido
+*/
+void printFiltros();
+
 int main(int argc, char **argv)
 {
-//	uint8_t *pack = NULL;
-//	struct pcap_pkthdr *hdr;
-
-//	char errbuf[PCAP_ERRBUF_SIZE];
-//	char entrada[256];
-//	int long_index = 0, retorno = 0;
-//	char opt;
+	uint8_t *pack = NULL;
+	struct pcap_pkthdr *hdr;
+	int retorno = 0;
 
 	if (signal(SIGINT, handleSignal) == SIG_ERR) {
 		printf("Error: Fallo al capturar la senal SIGINT.\n");
@@ -70,28 +71,13 @@ int main(int argc, char **argv)
 		mensajeFormatoError();
 		exit(ERROR);
 	}
-
+	
 	if(init(argc,argv) == ERROR){
 		exit(ERROR);
 	}
 
-
-	//Simple comprobacion de la correcion de la lectura de parametros
-	printf("Filtro:");
-	//if(ipsrc_filter[0]!=0)
-	printf("ipsrc_filter:%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8"\t", ipsrc_filter[0], ipsrc_filter[1], ipsrc_filter[2], ipsrc_filter[3]);
-	//if(ipdst_filter[0]!=0)
-	printf("ipdst_filter:%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8"\t", ipdst_filter[0], ipdst_filter[1], ipdst_filter[2], ipdst_filter[3]);
-
-	if (sport_filter!= NO_FILTER) {
-		printf("po_filtro=%"PRIu16"\t", sport_filter);
-	}
-
-	if (dport_filter != NO_FILTER) {
-		printf("pd_filtro=%"PRIu16"\t", dport_filter);
-	}
-
-	printf("\n\n");
+	printFiltros();
+	
 
 	do {
 		retorno = pcap_next_ex(descr, &hdr, (const u_char **)&pack);
@@ -104,7 +90,6 @@ int main(int argc, char **argv)
 			printf("Error al capturar un paquetes %s, %s %d.\n", pcap_geterr(descr), __FILE__, __LINE__);
 			pcap_close(descr);
 			exit(ERROR);
-
 		}
 	} while (retorno != TRACE_END);
 
@@ -152,13 +137,9 @@ int init(int argc, char **argv){
 				return ERROR;
 			}
 		}else if( strcmp(argv[i],"-ipo") == 0 ){
-
-			/*TODO: COLOCAR FILTROOOOOOS*/
-
+			sscanf(argv[i+1]," %"SCNu8".%"SCNu8".%"SCNu8".%"SCNu8"",ipsrc_filter,ipsrc_filter + 1,ipsrc_filter + 2,ipsrc_filter + 3);
 		}else if( strcmp(argv[i],"-ipd") == 0 ){
-
-			/*TODO: COLOCAR FILTROOOOOOS*/
-
+			sscanf(argv[i+1]," %"SCNu8".%"SCNu8".%"SCNu8".%"SCNu8"",ipdst_filter,ipdst_filter + 1,ipdst_filter + 2,ipdst_filter + 3);
 		}else if( strcmp(argv[i],"-po") == 0 ){
 			sport_filter = atoi(argv[i+1]);
 			if(sport_filter == 0){
@@ -185,4 +166,53 @@ int init(int argc, char **argv){
 	}
 
 	return OK;
+}
+
+void printFiltros(){
+	printf("Filtro:\n");
+	if(sport_filter != NO_FILTER){
+		printf("po_filtro=%"PRIu16"\t", sport_filter);
+	}
+	if (dport_filter != NO_FILTER) {
+		printf("pd_filtro=%"PRIu16"\t", dport_filter);
+	}
+	if( strcmp(ipsrc_filter,"") != 0 ){
+		printf("ipsrc_filter:%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8"\t", ipsrc_filter[0], ipsrc_filter[1], ipsrc_filter[2], ipsrc_filter[3]);	
+	}
+	if( strcmp(ipdst_filter,"") != 0 ){
+		printf("ipdst_filter:%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8"\t", ipdst_filter[0], ipdst_filter[1], ipdst_filter[2], ipdst_filter[3]);	
+	}
+	printf("\n\n");
+}
+
+void analizar_paquete(const struct pcap_pkthdr *hdr, const uint8_t *pack)
+{
+	printf("Nuevo paquete capturado el %s\n", ctime((const time_t *) & (hdr->ts.tv_sec)));
+
+	int i = 0;
+	printf("Direccion ETH destino= ");
+	printf("%02X", pack[0]);
+
+	for (i = 1; i < ETH_ALEN; i++) {
+		printf(":%02X", pack[i]);
+	}
+
+	printf("\n");
+	pack += ETH_ALEN;
+
+	printf("Direccion ETH origen = ");
+	printf("%02X", pack[0]);
+
+	for (i = 1; i < ETH_ALEN; i++) {
+		printf(":%02X", pack[i]);
+	}
+
+	printf("\n");
+
+	//pack+=ETH_ALEN;
+	// .....
+	// .....
+	// .....
+
+	printf("\n\n");
 }
