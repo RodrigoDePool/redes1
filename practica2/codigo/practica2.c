@@ -268,11 +268,15 @@ void analizar_paquete(const struct pcap_pkthdr *hdr, const uint8_t *pack)
 
 void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	uint8_t aux8;
+	uint8_t * paux8;
 	uint8_t *pack_aux;
 	uint16_t *paux;
 	uint16_t aux16;
+	uint32_t ip_32;
 	int flag;/*flag para avisar que no se continua al siguiente nivel*/
+	int ipflag; /*Para distinguir si no pasa por el tipo de protocolo o por la ip*/
 	int prot;/*0 para analizar udp, 1 para analizar tcp*/
+	int i;
 
 	printf("  Cabecera IPv4:\n");
 	/*Version*/
@@ -286,7 +290,7 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	aux8 = aux8 & pack[0]; /*Eliminamos asi el campo version, tenemos IHL*/
 	aux8 = (aux8 & pack[0])*4; /* IHL*4 tamanio en bytes de cabecera ip*/
 	printf("Longitud de cabecera ip en bytes = %"PRIu8"\n",aux8);
-	pack_aux = (uint8_t *)pack + aux8;/*Nos guardamos el final de la cabecera ip*/
+	pack_aux = (uint8_t *)pack + aux8;/*Nos guardamos el puntero al final de la cabecera ip*/
 
 	pack += 2;/*Posicion antes de la longitud*/
 	/*Longitud*/
@@ -325,16 +329,51 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	}
 
 	pack += 3;/*Antes de ip origen*/
+	
 	/*IP origen*/
-	/*crear uint de 32, hacer un ntohl */
-	/*utilizar uint8 y con el and correspondiente hacer byte a byte*/
-	/*El filtro tambien puede hacerse byte a byte*/
-	/*TODO:FILTRO Y CODIGO*/
+	ip_32 = ntohl(*(uint32_t *)pack);	
+	/*Imprimimos byte a byte la ip origen y comprobamos si es la del filtro*/	
+	ipflag = 0;
+	printf("Direccion IP origen = ");
+	paux8 = &ip_32;
+	if(*paux8 != ipsrc_filter[0]){
+		ipflag = 1;
+	}
+	printf("%d", paux8++);
+	for(i = 1; i < IP_ALEN; i++){
+		if(*paux8 != ipsrc_filter[i]){
+			ipflag = 1;	
+		}
+		printf(".%d", paux8++);
+	}
+	/*Si ipflag sigue cambia a 1 es que el ip no coincide con el filtro ipsrc*/
+	if(ipflag == 1){
+		printf("\nEl IP origen no pasa el filtro, no se mostrara el nivel 4\n");
+		flag = 1;
+	}	
 
 	pack += 4;
 	/*IP destino*/
-	/*TODO:FILTRO Y CODIGO*/
-
+	ip_32 = ntohl(*(uint32_t *)pack);	
+	/*Imprimimos byte a byte la ip destino y comprobamos si es la del filtro*/
+	ipflag = 0;
+	printf("Direccion IP destino = ");
+	paux8 = &ip_32;
+	if(*paux8 != ipdst_filter[0]){
+		ipflag = 1;
+	}
+	printf("%d", *(paux8++));
+	for(i = 1; i < IP_ALEN; i++){
+		if( *paux8 != ipdst_filter[i]){
+			ipflag = 1;	
+		}
+		printf(".%d", *(paux8++));
+	}
+	/*Si ipflag sigue cambia a 1 es que el ip no coincide con el filtro ipdst*/
+	if(ipflag == 1){
+		printf("\nEl IP destino no pasa el filtro, no se mostrara el nivel 4\n");
+		flag = 1;
+	}
 
 	if(flag == 1){
 		return;
