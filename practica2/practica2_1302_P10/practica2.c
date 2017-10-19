@@ -23,6 +23,8 @@ uint8_t ipsrc_filter[IP_ALEN] = {0};
 uint8_t ipdst_filter[IP_ALEN] = {0};
 uint16_t sport_filter= NO_FILTER;
 uint16_t dport_filter = NO_FILTER;
+int hay_filtro_ipo = 0;
+int hay_filtro_ipd = 0;
 
 /*
 *	Manejador para el sigint
@@ -161,6 +163,7 @@ int init(int argc, char **argv){
 			}
 		}else if( strcmp(argv[i],"-ipo") == 0 ){
 			aux = sscanf(argv[i+1]," %"SCNu8".%"SCNu8".%"SCNu8".%"SCNu8"",ipsrc_filter,ipsrc_filter + 1,ipsrc_filter + 2,ipsrc_filter + 3);
+			hay_filtro_ipo = 1;			
 			if(aux != 4){
 				printf("Error en el filtro de ip origen.\n");
 				if(descr != NULL) pcap_close(descr);
@@ -168,6 +171,7 @@ int init(int argc, char **argv){
 			}
 		}else if( strcmp(argv[i],"-ipd") == 0 ){
 			aux = sscanf(argv[i+1]," %"SCNu8".%"SCNu8".%"SCNu8".%"SCNu8"",ipdst_filter,ipdst_filter + 1,ipdst_filter + 2,ipdst_filter + 3);
+			hay_filtro_ipd = 1;
 			if(aux != 4){
 				printf("Error en el filtro de ip destino.\n");
 				if(descr != NULL) pcap_close(descr);
@@ -258,13 +262,13 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	uint8_t aux8;
 	uint8_t * paux8;
 	uint8_t *pack_aux;
-	uint8_t ip[IP_ALEN];
 	uint16_t *paux;
 	uint16_t aux16;
 	//uint32_t ip_32;
 	int flag;/*flag para avisar que no se continua al siguiente nivel*/
 	int prot;/*0 para analizar udp, 1 para analizar tcp*/
 	int i;
+	int ip_filtro = 0;/*Se coloca a 1 si la ip no pasa el filtro*/
 
 	printf("  Cabecera IPv4:\n");
 	/*Version*/
@@ -322,29 +326,20 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	/*Guardamos e imprimimos byte a byte la ip origen*/	
 	printf("Direccion IP origen = ");
 	paux8 = (uint8_t *)pack;
-	ip[0] = *paux8;
-	printf("%d", ip[0]);
+	printf("%d", *paux8);
 	paux8 ++;
 	for(i = 1; i < IP_ALEN; i++){
-		ip[i] = *paux8;
-		printf(".%d", ip[i]);
+		printf(".%d", *paux8);		
+		if( hay_filtro_ipo == 1 && ipsrc_filter[i] != *paux8){
+			ip_filtro = 1;		
+		}
 		paux8 ++;
 	}
 	printf("\n");
-
-	/*Comprobamos si hay filtro (si algun componente != 0), y si coincide con el ip src registrado*/
-	for(i = 0; i < IP_ALEN; i++){
-		if(ipsrc_filter[i] != 0){
-			/*Reusamos i como variable iteracion porque despues haremos break*/
-			for(i = 0; i < IP_ALEN; i++){
-				if(ipsrc_filter[i] != ip[i]){
-					printf("El IP origen no pasa el filtro, no se mostraran mas campos\n");
-					/*Si no pasa filtro, nada mas que hacer en esta funcion: ni ip destino, ni analizar nivel 4*/
-					return;
-				}
-			}
-			break;
-		}
+	/*Comprobamos si pasa el filtro*/
+	if(ip_filtro == 1){
+		printf("El IP origen no pasa el filtro, no se mostraran mas campos\n");
+		return;
 	}
 
 	pack += 4;
@@ -352,29 +347,21 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	/*Guardamos e imprimimos byte a byte la ip destino*/
 	printf("Direccion IP destino = ");
 	paux8 = (uint8_t *)pack;
-	ip[0] = *paux8;
-	printf("%"PRId8"", ip[0]);
+	printf("%"PRId8"", *paux8);
 	paux8 ++;
 	for(i = 1; i < IP_ALEN; i++){
-		ip[i] = *paux8;
-		printf(".%d", ip[i]);
-		paux8 ++;
+		printf(".%d", *paux8);
+		if( hay_filtro_ipd == 1 && ipdst_filter[i] != *paux8){
+			ip_filtro = 1;		
+		}
+		paux8 ++;	
 	}
 	printf("\n");
-	/*Comprobamos si hay filtro (si algun componente != 0), y si coincide con el ip src registrado*/
-	for(i = 0; i < IP_ALEN; i++){
-		if(ipdst_filter[i] != 0){
-			/*Reusamos i como variable iteracion porque despues haremos break*/
-			for(i = 0; i < IP_ALEN; i++){
-				if(ipdst_filter[i] != ip[i]){
-					printf("El IP destino no pasa el filtro, no se mostraran mas campos\n");
-					flag = 1;
-					break;
-				}
-			}
-			break;
-		}
-	}
+	/*Comprobamos si pasa el filtro*/
+	if(ip_filtro == 1){
+		printf("El IP destino no pasa el filtro, no se mostraran mas campos\n");
+		return;
+	}	
 
 	if(flag == 1){
 		return;
@@ -388,7 +375,6 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 void analizar_TCP(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	uint16_t *paux;
 	uint16_t aux16;
-	uint8_t aux8;
 	uint8_t syn, ack;
 
 	printf("  Cabecera TCP:\n");
