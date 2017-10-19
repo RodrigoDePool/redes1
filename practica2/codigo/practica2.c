@@ -359,7 +359,7 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	printf("\n");
 	/*Comprobamos si pasa el filtro*/
 	if(ip_filtro == 1){
-		printf("El IP origen no pasa el filtro, no se mostraran mas campos\n");
+		printf("El IP destino no pasa el filtro, no se mostraran mas campos\n");
 		return;
 	}	
 
