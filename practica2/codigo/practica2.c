@@ -388,7 +388,6 @@ void analizar_nivel3(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 void analizar_TCP(const struct pcap_pkthdr *hdr, const uint8_t *pack){
 	uint16_t *paux;
 	uint16_t aux16;
-	uint8_t aux8;
 	uint8_t syn, ack;
 
 	printf("  Cabecera TCP:\n");
