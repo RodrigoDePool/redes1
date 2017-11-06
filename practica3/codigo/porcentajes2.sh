@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto > tipos
+tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto > ./data/tipos
 
 awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
  {
@@ -22,4 +22,4 @@ awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
 	print "UDP\t", lineas_udp*100/lineas_ip, "%";
 	print "TCP\t", lineas_tcp*100/lineas_ip, "%";
 	print "Otros\t", 100 - lineas_udp*100/lineas_ip - lineas_tcp*100/lineas_ip, "%";
-}' tipos
+}' ./data/tipos
