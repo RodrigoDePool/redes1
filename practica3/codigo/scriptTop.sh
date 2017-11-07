@@ -2,26 +2,15 @@
 
 # Leemos los paquetes ip e imprimimos su ip origen y tamanio paquete
 
-tshark -r traza.pcap -Y ip -T fields -e ip.src -e frame.len > top
+tshark -r traza.pcap -E separator=, -Y ip -T fields -e ip.src -e frame.len > top
+> top.txt
 
-awk 'BEGIN{ FS="\t"; }
-# /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\.\t[0-9]+/{
-{
-    #print $1 
-    #if( !($1 in npaquetes)){
-            #npaquetes[$1] = 1;
-     #   }else{
-            npaquetes[$1] ++;
-      #  }
-
-        if( !($1 in nbytes)){
-            # nbytes[$1] = $2;
-        }else{
-            nbytes[$1] += $2;
-        }
+awk 'BEGIN{ FS=",";}{
+        
+        npaquetes[$1] ++;
+        nbytes[$1] += $2;
 }
-{
-    for (key in npaquetes) {print key " " npaquetes[key] " paquetes"}
-    #for (key in nbytes) {print key nbytes[key] "bytes"}
-}' top
+END{
+   for (key in npaquetes) {printf "%s %d paquetes %d bytes\n", key, npaquetes[key], nbytes[key] >> "top.txt" }
+}' top >> top.txt
 
