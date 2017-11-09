@@ -60,7 +60,7 @@ else
 fi
 
 # Si no existia anteriormente, creamos el directorio "data/top/" donde almacenar resultados
-DIR="data/top/"
+DIR="./data/top/"
 mkdir -p $DIR
 # Leemos los paquetes ip e imprimimos su ip origen y tamanio paquete
 

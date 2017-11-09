@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# Crea el directorio data en caso de que no exista
+mkdir -p ./data
+
+# Mostramos traza tipo_ethernet tipo_vlan tipo_ip
 tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto > ./data/tipos
 
+# Evaluamos porcentajes de ip, no ip, tcp, udp y otros. Lo imprimimos por pantalla
 awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
  {
 	lineas_totales = lineas_totales + 1;

@@ -2,9 +2,7 @@
  crearCDF.c	 
  Primeros pasos para implementar y validar la funcion crearCDF(). Est funcion debe devolver
  un fichero con dos columnas, la primera las muestras, la segunda de distribucion de
- probabilidad acumulada. En la version actual la funcion realiza los dos primeros pasos para
- este objetivo, cuenta el numero de muestras y las ordena.
- El alumno debe acabar su implementacion de crearCDF() y usar un main similar para validar su fucionamiento.
+ probabilidad acumulada.
 
  El fichero recibido deberia tener una unica columna donde aparecen los valores de la muestra 
 

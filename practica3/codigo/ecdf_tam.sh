@@ -25,7 +25,7 @@ else
 fi
 
 #Si no existe, creamos dir apra guardar ficheros con tamanios.
-DIR="data/ecdf_tam/"
+DIR="./data/ecdf_tam/"
 mkdir -p $DIR
 #Necesitamos ficheros input y output para crearCDF.c
 #Formato input: data/ecdf_tam/in_dns_src | Formato output: data/ecdf_tam/out_dns_src 
