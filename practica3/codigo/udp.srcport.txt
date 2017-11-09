@@ -1,0 +1,10 @@
+38889 1770 paquetes 2431980 bytes
+53 592 paquetes 85720 bytes
+546 124 paquetes 18337 bytes
+5353 95 paquetes 23317 bytes
+1900 12 paquetes 6447 bytes
+63423 6 paquetes 1080 bytes
+58532 6 paquetes 1080 bytes
+55421 6 paquetes 1080 bytes
+49169 6 paquetes 1080 bytes
+61153 3 paquetes 624 bytes
