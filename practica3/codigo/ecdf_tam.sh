@@ -25,7 +25,16 @@ else
 fi
 
 #Si no existe, creamos dir apra guardar ficheros con tamanios.
-#Guardamos en fichero tamanios deseados segun los inputs
 DIR="data/ecdf_tam/"
 mkdir -p $DIR
-tshark -r traza.pcap -Y $FILTER -T fields -e $TAMANIO > "$DIR${1}_$2" 
+#Necesitamos ficheros input y output para crearCDF.c
+#Formato input: data/ecdf_tam/in_dns_src | Formato output: data/ecdf_tam/out_dns_src 
+ECDF_INPUT="${DIR}in_${1}_$2"
+ECDF_OUTPUT="${DIR}out_${1}_$2"
+#Guardamos en fichero tamanios deseados segun los inputs
+tshark -r traza.pcap -Y $FILTER -T fields -e $TAMANIO > $ECDF_INPUT
+
+#ES HORA DE GNUPLOTTEAR :D
+make
+./crearCDF $ECDF_INPUT $ECDF_OUTPUT
+
