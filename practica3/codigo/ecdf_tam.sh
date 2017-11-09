@@ -53,6 +53,7 @@ exit
 EOFMarker
 
 #Para futuro @TODO : ¿borrar archivo ecdf_output y ecdf_input?
-#xdg-open "$ECDF_OUTPUT.png"
+rm $ECDF_OUTPUT
+rm $ECDF_INPUT
 
 exit 0
