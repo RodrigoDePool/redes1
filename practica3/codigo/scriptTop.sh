@@ -67,7 +67,6 @@ mkdir -p $DIR
 tshark -r traza.pcap -E separator=, -Y $LAYER -T fields -e $WAY -e frame.len > $WAY
 
 awk 'BEGIN{ FS=",";}{
-        
         npaquetes[$1] ++;
         nbytes[$1] += $2;
 }
@@ -77,5 +76,9 @@ END{
 
 rm $WAY
 
-awk 'BEGIN{}{print $1}END{}' "$DIR$WAY.$3"
+echo "Top 10"
+awk -v k="$K" -v arg="$3"  'BEGIN{}{printf "%d\t%d %s\n", $1, $k, arg}END{}' "$DIR$WAY.$3" > "${DIR}aux"
+mv "${DIR}aux" $DIR$WAY.$3
+cat "$DIR$WAY.$3"
+
 
