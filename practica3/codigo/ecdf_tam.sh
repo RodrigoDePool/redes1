@@ -38,3 +38,21 @@ tshark -r traza.pcap -Y $FILTER -T fields -e $TAMANIO > $ECDF_INPUT
 make
 ./crearCDF $ECDF_INPUT $ECDF_OUTPUT
 
+gnuplot -p <<-EOFMarker
+set autoscale
+unset log
+unset label
+set title "Distribucion de variable aleaoria T = 'tamanio paquetes $1 \($2\)'"
+set xlabel "tamanio \(bytes\)"
+set ylabel "P\(T <= tamanio\)"
+unset key
+set terminal png size 800,600 
+set output "$ECDF_OUTPUT.png"
+plot "$ECDF_OUTPUT" u 1:2 w lines
+exit
+EOFMarker
+
+#Para futuro @TODO : ¿borrar archivo ecdf_output y ecdf_input?
+#xdg-open "$ECDF_OUTPUT.png"
+
+exit 0
