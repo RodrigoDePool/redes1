@@ -43,3 +43,4 @@ plot "$PLOT_FILE" u 1:2 w lines
 exit
 EOFMarker
 
+rm $PLOT_FILE
