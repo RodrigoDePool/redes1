@@ -51,6 +51,8 @@ mkdir -p graficas
 mkdir -p datos
 
 
+#AWK DE FILTRADO + GENERAR TODO CORRECTAMENTE
+
 #En caso de que el filtro no deje pasar ningun paquete
 if ! [ -s input.tmp ]
 then
