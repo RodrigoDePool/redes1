@@ -6,6 +6,9 @@
 
 #input: tcp/udp dst/src
 
+IP="63.161.195.170"
+PORT="10455"
+
 #Comprobamos input
 if [ "$#" != "2" ]
 then

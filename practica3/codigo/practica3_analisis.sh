@@ -19,7 +19,7 @@ make --quiet
 #col13: MAC dst		col14: MAC src
 if ! [ -a tipos.tshark ]
 then
-	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
+	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
 echo 'Porcentajes de paquetes por protocolo:'
