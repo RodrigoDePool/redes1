@@ -16,7 +16,7 @@ then
     FILTER="tcp.${2}port==80"; TAMANIO="ip.len"
 elif [ "$1" = "dns" ]
 then
-    FILTER="udp.${2}port==53"; TAMANIO="ip.len"
+    FILTER="udp.${2}poort==53"; TAMANIO="ip.len"
 else
     echo "Argumento 1 erroneo: http/dns/eth"
     exit -1
@@ -45,7 +45,7 @@ set ylabel "P\( T <= tamanio \)"
 unset key
 set terminal png size 800,600
 set output "./graficas/out_${1}_${2}.png" 
-plot "output.tmp" u 1:2 w lines
+plot "output.tmp" u 1:2 w steps
 EOF
 
 rm input.tmp

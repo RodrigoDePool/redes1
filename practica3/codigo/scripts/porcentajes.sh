@@ -3,8 +3,14 @@
 #Este script manda como output los porcentajes de paquetes IP y NO-IP
 #Ademas, entre los paquetes IP distingue porcentajes de TCP/UDP/OTROS
 
-# Mostramos traza tipo_ethernet tipo_vlan tipo_ip y guardamos en fichero tempral
-tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto > temporal.porcentajes
+#Creamos el fichero tshark si no existe ya 
+if ! [ -a tipos.tshark ]
+then
+	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative > tipos.tshark
+fi
+
+#Si no existe el directorio grafica, lo creamos
+mkdir -p datos
 
 # Evaluamos porcentajes de ip, no ip, tcp, udp y otros. Lo imprimimos por pantalla
 awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
@@ -27,6 +33,6 @@ awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
 	print "UDP\t", lineas_udp*100/lineas_ip, "%";
 	print "TCP\t", lineas_tcp*100/lineas_ip, "%";
 	print "Otros\t", 100 - lineas_udp*100/lineas_ip - lineas_tcp*100/lineas_ip, "%";
-}' temporal.porcentajes
+}' tipos.tshark > datos/porcentajes
 
-rm temporal.porcentajes
+cat datos/porcentajes

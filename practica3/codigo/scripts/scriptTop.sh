@@ -43,8 +43,12 @@ then
     exit -1	
 fi
 
-#Guardamos en un fichero temporal el filtro de la traza para luego usar awk
-tshark -r traza.pcap -E separator=, -Y $LAYER -T fields -e $WAY -e frame.len > temporal.top
+#Creamos el fichero de tipos de tshar si no existe
+if ! [ -a tipos.tshark ]
+then
+	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative > tipos.tshark
+fi
+
 
 #Segun el tercer argumentos realizamos el top
 if [ "$3" == "paquetes" ]

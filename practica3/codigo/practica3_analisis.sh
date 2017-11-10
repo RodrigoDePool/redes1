@@ -3,10 +3,23 @@
 
 #Wrapper que realiza todas las acciones pedidas en la practica
 
-#Creamos el directorio graficas si no existe
+
+#Creamos el directorio graficas y datos si no existen
 mkdir -p graficas
+mkdir -p datos
 #Compilamos el script en C para crear ECDF
 make --quiet
+
+#Si no existe el fichero tipos.tshark lo creamos
+#Tiene traza con el siguiente formato
+#col1: tipo_eth   col2: tipo_vlan   col3: protocolo_ip
+#col4: ipdst      col5: ipsrc		col6: tcp.portdst
+#col7: tcp.portsrc col6: udp.portdst col7: udp.portsrc
+#col8: tamano_paq  col9: tamano_ip  col10: tiempo_rel
+if ! [ -a tipos.tshark ]
+then
+	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative > tipos.tshark
+fi
 
 echo 'Porcentajes de paquetes por protocolo:'
 bash scripts/porcentajes.sh #Hara falta meterlo en un fichero ??

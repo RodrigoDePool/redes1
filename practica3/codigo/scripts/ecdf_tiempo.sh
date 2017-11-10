@@ -53,7 +53,7 @@ set ylabel "P\( T <= tiempo \)"
 unset key
 set terminal png size 800,600
 set output "./graficas/out_flujo_${1}.png" 
-plot "output.tmp" u 1:2 w lines
+plot "output.tmp" u 1:2 w steps
 EOF
 
 rm input.tmp
