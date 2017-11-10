@@ -60,5 +60,32 @@ echo 'Top 10 UDP SRC BYTES'
 bash scripts/scriptTop.sh udp dst bytes #Hara falta meterlo en un fichero ??
 echo ''
 
+#Creacion de ecdfs por tamano
+bash scripts/ecdf_tam.sh eth src
+echo ''
+bash scripts/ecdf_tam.sh eth dst
+echo ''
+bash scripts/ecdf_tam.sh http src
+echo ''
+bash scripts/ecdf_tam.sh http dst
+echo ''
+bash scripts/ecdf_tam.sh dns src
+echo ''
+bash scripts/ecdf_tam.sh dns dst
+echo ''
 
+#Creacion de ecdfs por tiempo
+bash scripts/ecdf_tiempo.sh tcp src
+echo ''
+bash scripts/ecdf_tiempo.sh tcp dst
+echo ''
+bash scripts/ecdf_tiempo.sh udp src
+echo ''
+bash scripts/ecdf_tiempo.sh udp dst
+echo ''
 
+#Medicion de ancho de banda
+bash scripts/bandwidth.sh src
+echo ''
+bash scripts/bandwidth.sh dst
+echo ''

@@ -31,6 +31,14 @@ fi
 
 tshark -r traza.pcap -E separator=, -Y "$FILTER" -T fields -e frame.time_delta_displayed > input.tmp
 
+#En caso de que el filtro no deje pasar ningun paquete
+if ! [ -s input.tmp ]
+then
+	echo 'No hay paquetes en '${2}' con el flujo '${1}', no se generara grafica'
+	rm input.tmp
+	exit -1
+fi
+
 
 ./scripts/crearCDF input.tmp output.tmp
 
