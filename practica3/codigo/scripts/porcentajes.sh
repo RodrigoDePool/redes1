@@ -6,14 +6,14 @@
 #Creamos el fichero tshark si no existe ya 
 if ! [ -a tipos.tshark ]
 then
-	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative > tipos.tshark
+	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
 #Si no existe el directorio grafica, lo creamos
 mkdir -p datos
 
 # Evaluamos porcentajes de ip, no ip, tcp, udp y otros. Lo imprimimos por pantalla
-awk 'BEGIN{ FS=":"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
+awk 'BEGIN{ FS="\t"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; }
  {
 	lineas_totales = lineas_totales + 1;
 

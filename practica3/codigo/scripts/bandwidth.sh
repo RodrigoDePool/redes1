@@ -26,10 +26,10 @@ fi
 #Columna a filtrar por awk
 if [ "$1" == "src" ]
 then
-	COL="13"
+	COL=13
 elif [ "$1" == "dst" ]
 then
-	COL="14"
+	COL=14
 else
 	echo 'Argumento erroneo: src/dst'
 	exit -1
@@ -37,11 +37,10 @@ fi
 
 
 #Generamos fichero con segundo bits_de_ese_segundo en directorio datos
-awk -v col=${COL} -v mac=${MAC} 'BEGIN{FS=":"; secs=1;}
+awk -v col=${COL} -v mac=${MAC} 'BEGIN{FS="\t"; secs=1;}
 {
 	if( $col == mac ){ if($2<secs){ bytes[secs]+=$1 }else{ secs++; } }
 } END{ for(time=1; time<=secs; time++){ printf "%d %f\n",time,bytes[time] } }' tipos.tshark > datos/bandwidth_${1}
-
 
 #Generamos png
 gnuplot << EOF
