@@ -13,27 +13,34 @@ then
 	echo 'Cantidad de argumentos erronea: src/dst'
 fi
 
-#Establecemos filtros
+#Si no existe el directorio datos y graficas los crea
+mkdir -p datos
+mkdir -p graficas
+
+#Si no existe el tipo.tshark lo creamos
+if ! [ -a tipos.tshark ]
+then
+	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
+fi
+
+#Columna a filtrar por awk
 if [ "$1" == "src" ]
 then
-	FILTER="eth.src==${MAC}"
+	COL=13
 elif [ "$1" == "dst" ]
 then
-	FILTER="eth.dst==${MAC}"
+	COL=14
 else
 	echo 'Argumento erroneo: src/dst'
 	exit -1
 fi
 
-#Filtramos por MAC dst/src y las organizamos por tiempo
-tshark -r traza.pcap  -Y "$FILTER" -T fields -e frame.len -e frame.time_relative | sort -n -k 2 > tiempo.tmp
 
-#Generamos fichero con segundo bits_de_ese_segundo
-awk 'BEGIN{FS="\t"; secs=1;}
+#Generamos fichero con segundo bits_de_ese_segundo en directorio datos
+awk -v col=${COL} -v mac=${MAC} 'BEGIN{FS="\t"; secs=1;}
 {
-	if($2<secs){ bytes[secs]+=$1 }else{ secs++; }
-} END{ for(time=1; time<=secs; time++){printf "%d %f\n",time,bytes[time] } }' tiempo.tmp > input.tmp
-
+	if( $col == mac ){ if($2<secs){ bytes[secs]+=$1 }else{ secs++; } }
+} END{ for(time=1; time<=secs; time++){ printf "%d %f\n",time,bytes[time] } }' tipos.tshark > datos/bandwidth_${1}
 
 #Generamos png
 gnuplot << EOF
@@ -46,12 +53,10 @@ set ylabel "Ancho de banda (bits/segundo)"
 unset key
 set terminal png size 800,600 
 set output "./graficas/bandwidth_${1}.png"
-plot "input.tmp" u 1:2 w steps
+plot "datos/bandwidth_${1}" u 1:2 w steps
 exit
 EOF
 
 
-rm tiempo.tmp
-rm input.tmp
-
+echo 'Datos de bandwidth_'${1}' creada en el directorio datos'
 echo 'Grafica bandwidth_'${1}'.png creada en el directorio graficas'
