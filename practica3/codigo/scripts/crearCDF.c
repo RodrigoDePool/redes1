@@ -41,25 +41,23 @@ int main(int argc, char **argv){
 
 int crearCDF(char* filename_data, char* filename_cdf) {
 	char comando[255]; char linea[255]; char aux[255];
-	int num_lines, acumulador, repeticiones, valor;
+	int num_lines, acumulador, repeticiones;
+	float valor;
 	FILE *f, *aux_f;
 
 	/*Lectura total de lineas*/
 	sprintf(comando,"wc -l %s",filename_data);		/*wc cuenta las lineas del fichero dado*/
-	printf("Comando en ejecucion: %s\n",comando);
 	f = popen(comando, "r");
 	if(f == NULL){
 		printf("Error ejecutando el comando\n");
 		return ERROR;
 	}
 	fgets(linea,255,f);
-	printf("Retorno: %s\n",linea);
 	sscanf(linea,"%d %s",&num_lines,aux);
 	pclose(f);
 
 	/*Ordenar fichero (menor a mayor)*/
 	sprintf(comando,"sort -n  %s > %s",filename_data,filename_cdf); /*Orden numerico*/
-	printf("Comando en ejecucion: %s\n",comando);
 	f = popen(comando, "r");
 	if(f == NULL){
 		printf("Error ejecutando el comando\n");
@@ -67,14 +65,12 @@ int crearCDF(char* filename_data, char* filename_cdf) {
 	}
 	bzero(linea,255);
 	fgets(linea,255,f);
-	printf("Retorno: %s\n",linea);
 	pclose(f);
 	
 	/* Creamos fichero con: cantidad_de_ocurrencias valor
 	 * lo almacenamos en un fichero temporal
 	*/
 	sprintf(comando,"uniq -c  %s > %s", filename_cdf, TEMPORAL);
-	printf("Comando en ejecucion: %s\n",comando);
 	f = popen(comando, "r");
 	if(f == NULL){
 		printf("Error ejecutando el comando\n");
@@ -82,11 +78,9 @@ int crearCDF(char* filename_data, char* filename_cdf) {
 	}
 	bzero(linea,255);
 	fgets(linea,255,f);
-	printf("Retorno: %s\n",linea);
 	pclose(f);
 
 	/*Creamos fichero con ECDF*/
-	printf("Abriendo ficheros\n");
 	f = fopen(TEMPORAL, "r");
 	aux_f = fopen( filename_cdf, "w");
 	/*caso de error*/
@@ -97,19 +91,17 @@ int crearCDF(char* filename_data, char* filename_cdf) {
       eliminarTemporal(); /*Eliminamos fichero temporal*/
 	  return ERROR;
 	}
-	printf("Creando ECDF\n");
 	bzero(linea,255);
 	acumulador = 0;
 	while( fgets(linea,255,f) != NULL ){
-	  sscanf(linea,"%d %d",&repeticiones, &valor);	/*Leemos el repeticiones valor*/
+	  sscanf(linea,"%d %f",&repeticiones, &valor);	/*Leemos el repeticiones valor*/
 	  acumulador += repeticiones;					/*Sumamos las acumuladas*/
 	  /*Imprime valor porcentaje_de_apariciones*/
-	  fprintf(aux_f,"%d %f\n",valor,acumulador/(float)num_lines);
+	  fprintf(aux_f,"%f %f\n",valor,acumulador/(float)num_lines);
 	  bzero(linea,255);
 	}
 	fclose(f);
 	fclose(aux_f);
-	printf("ECDF creada\n");
 	
 	eliminarTemporal();
 	return OK;

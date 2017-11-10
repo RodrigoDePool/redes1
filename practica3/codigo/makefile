@@ -1,2 +1,2 @@
-crearCDF: crearCDF.c
-	gcc -o crearCDF crearCDF.c
+crearCDF: ./scripts/crearCDF.c
+	gcc -o ./scripts/crearCDF ./scripts/crearCDF.c
