@@ -22,7 +22,7 @@ elif [ "$1" == "tcp" ]; then
 	if [ "$2" = "src" ]; then PORT_COL=$TCP_SRC;
 	elif [ "$2" = "dst" ]; then PORT_COL=$TCP_DST; fi;
 elif [ "$1" == "udp" ]; then
-	if [ "$2" = "src" ]; then PORT_COL=$UDP_SRC;
+	if [ "$2" = "src"]; then PORT_COL=$UDP_SRC;
 	elif [ "$2" = "dst" ]; then PORT_COL=$UDP_DST; fi;
 else
     echo "Argumento 1 erroneo: tcp/ip/udp src/dst paquetes/bytes"
