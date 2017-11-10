@@ -12,14 +12,17 @@ GRAF="graficas/ecdf_tam/"
 mkdir -p $DATA
 mkdir -p $GRAF
 #Probamos argumentos, establecemos filtro y nivel de filtrado
+if [ $2 != "src" ] && [ $2 != "src" ]; then echo "Argumento 2 erroneo: src/dst"; exit -1; fi 
+echo "$1 $2"
 if [ "$1" = "eth" ]; then
     if [ "$2" = "src" ]; then COL_PORT="14";
     elif [ "$2" = "dst" ]; then COL_PORT="13";
     fi
     COL_TAM="11"; FILTER=$MAC
 elif [ "$1" = "http" ]; then
-    if ["$2" = "src" ]; then COL_PORT="7";
-    elif ["$2" = "dst" ]; then COL_PORT="6";
+    echo "JAJA!"
+    if ["$2" = "src" ]; then COL_PORT="7"; echo "JAJA2";
+    elif ["$2" = "dst" ]; then COL_PORT="6"; echo "JAJA3";
     fi
     COL_TAM="10"; FILTER="80"
 elif [ "$1" = "dns" ]; then
@@ -33,9 +36,10 @@ else
 fi
 
 #Guardamos en fichero tamanios deseados en inputs
-awk -v col_tam=$COL_TAM -v col_port=$COL_PORT -v filter=$FILTER 'BEGIN{ FS="\t"; }
-{   printf "HOLA tam %s port %s filter %s\n", $col_tam, $col_port, filter
-    if($col_port != null && $col_port == filter ){printf "%d\n", $col_tam;}
+awk -v col_tam=$COL_TAM -v col_port=$COL_PORT -v filter=$FILTER 'BEGIN{ FS="\t"; printf "Tam %d Port %d Filter %d\n", col_tam, col_port, filter;}
+{   #printf "HOLA tam %s port %s filter %s\n", $col_tam, $col_port, filter
+    printf "%s columna %s contenido %s\n", $7, col_port, $col_port
+    if($col_port != null && $col_port == filter ){printf "%d\n", $col_tam; }
 }
 END{}' tipos.tshark > input.tmp
 
