@@ -7,24 +7,24 @@
 
 MAC="00:11:88:CC:33:CA"
 # Si no existian, creamos dirs para graficas y data
-DATA="data/ecdf_tam/"
-GRAF="grafica/ecdf_tam/"
+DATA="datos/ecdf_tam/"
+GRAF="graficas/ecdf_tam/"
 mkdir -p $DATA
 mkdir -p $GRAF
 #Probamos argumentos, establecemos filtro y nivel de filtrado
 if [ "$1" = "eth" ]; then
-    if ["$2" = "src"]; then COL_PORT="14";
-    elif ["$2" = "dst"]; then COL_PORT="13";
+    if [ "$2" = "src" ]; then COL_PORT="14";
+    elif [ "$2" = "dst" ]; then COL_PORT="13";
     fi
     COL_TAM="11"; FILTER=$MAC
 elif [ "$1" = "http" ]; then
-    if ["$2" = "src"]; then COL_PORT="7";
-    elif ["$2" = "dst"]; then COL_PORT="6";
+    if ["$2" = "src" ]; then COL_PORT="7";
+    elif ["$2" = "dst" ]; then COL_PORT="6";
     fi
     COL_TAM="10"; FILTER="80"
 elif [ "$1" = "dns" ]; then
-    if ["$2" = "src"]; then COL_PORT="9";
-    elif ["$2" = "dst"]; then COL_PORT="8";
+    if [ "$2" = "src" ]; then COL_PORT="9";
+    elif [ "$2" = "dst "]; then COL_PORT="8";
     fi
     COL_TAM="10"; FILTER="53"
 else
@@ -33,9 +33,9 @@ else
 fi
 
 #Guardamos en fichero tamanios deseados en inputs
-awk -v col_tam=$COL_TAM -v col_port=$COL_PORT -v filter=$FILTER'BEGIN{}
-{    if($col_port != null && $col_port == filter )
-          printf("%d\n", $col_tam);
+awk -v col_tam=$COL_TAM -v col_port=$COL_PORT -v filter=$FILTER 'BEGIN{ FS="\t"; }
+{   printf "HOLA tam %s port %s filter %s\n", $col_tam, $col_port, filter
+    if($col_port != null && $col_port == filter ){printf "%d\n", $col_tam;}
 }
 END{}' tipos.tshark > input.tmp
 
@@ -53,10 +53,11 @@ set ylabel "P\( T <= tamanio \)"
 unset key
 set terminal png size 800,600
 set output "$GRAF${1}_${2}.png" 
-plot "output.tmp" u 1:2 w lines
+
+plot "$DATA${1}_$2" u 1:2 w lines
 EOF
 
-rm input.tmp
+# rm input.tmp
 
 echo 'Grafica '${1}'_'${2}'.png creada en el directorio $GRAF'
 
