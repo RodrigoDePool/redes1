@@ -6,33 +6,41 @@
 #Input: $1 = eth/http/dns, $2 = src/dst
 
 MAC="00:11:88:CC:33:CA"
-
+# Si no existian, creamos dirs para graficas y data
+DATA="data/ecdf_tam/"
+GRAF="grafica/ecdf_tam/"
+mkdir -p $DATA
+mkdir -p $GRAF
 #Probamos argumentos, establecemos filtro y nivel de filtrado
-if [ "$1" = "eth" ]
-then
-    FILTER="eth.$2==$MAC"; TAMANIO="frame.len"
-elif [ "$1" = "http" ]
-then
-    FILTER="tcp.${2}port==80"; TAMANIO="ip.len"
-elif [ "$1" = "dns" ]
-then
-    FILTER="udp.${2}poort==53"; TAMANIO="ip.len"
+if [ "$1" = "eth" ]; then
+    if ["$2" = "src"]; then COL_PORT="14";
+    elif ["$2" = "dst"]; then COL_PORT="13";
+    fi
+    COL_TAM="11"; FILTER=$MAC
+elif [ "$1" = "http" ]; then
+    if ["$2" = "src"]; then COL_PORT="7";
+    elif ["$2" = "dst"]; then COL_PORT="6";
+    fi
+    COL_TAM="10"; FILTER="80"
+elif [ "$1" = "dns" ]; then
+    if ["$2" = "src"]; then COL_PORT="9";
+    elif ["$2" = "dst"]; then COL_PORT="8";
+    fi
+    COL_TAM="10"; FILTER="53"
 else
-    echo "Argumento 1 erroneo: http/dns/eth"
-    exit -1
-fi
-
-if [ "$2" != "src" ] && [ "$2" != "dst" ]
-then
-    echo "Argumento 2 erroneo: src/dst"
+    echo "Argumentos erroneos: http/dns/eth src/dst"
     exit -1
 fi
 
 #Guardamos en fichero tamanios deseados en inputs
-tshark -r traza.pcap -Y $FILTER -T fields -e $TAMANIO > input.tmp
+awk -v col_tam=$COL_TAM -v col_port=$COL_PORT -v filter=$FILTER'BEGIN{}
+{    if($col_port != null && $col_port == filter )
+          printf("%d\n", $col_tam);
+}
+END{}' tipos.tshark > input.tmp
 
 #Ejecutamos creador de ECDFs
-./scripts/crearCDF input.tmp output.tmp
+./scripts/crearCDF input.tmp "$DATA${1}_$2"
 
 #Ejecutamos gnuplot
 gnuplot << EOF
@@ -44,13 +52,12 @@ set xlabel "tamanio \(bytes\)"
 set ylabel "P\( T <= tamanio \)"
 unset key
 set terminal png size 800,600
-set output "./graficas/out_${1}_${2}.png" 
-plot "output.tmp" u 1:2 w steps
+set output "$GRAF${1}_${2}.png" 
+plot "output.tmp" u 1:2 w lines
 EOF
 
 rm input.tmp
-rm output.tmp
 
-echo 'Grafica out_'${1}'_'${2}'.png creada en el directorio graficas'
+echo 'Grafica '${1}'_'${2}'.png creada en el directorio $GRAF'
 
 exit 0
