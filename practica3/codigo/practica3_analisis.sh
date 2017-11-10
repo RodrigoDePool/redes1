@@ -14,11 +14,12 @@ make --quiet
 #Tiene traza con el siguiente formato
 #col1: tipo_eth   col2: tipo_vlan   col3: protocolo_ip
 #col4: ipdst      col5: ipsrc		col6: tcp.portdst
-#col7: tcp.portsrc col6: udp.portdst col7: udp.portsrc
-#col8: tamano_paq  col9: tamano_ip  col10: tiempo_rel
+#col7: tcp.portsrc col8: udp.portdst col9: udp.portsrc
+#col10: tamano_paq  col11: tamano_ip  col12: tiempo_rel
+#col13: MAC dst		col14: MAC src
 if ! [ -a tipos.tshark ]
 then
-	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative > tipos.tshark
+	tshark -r traza.pcap -E separator=: -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
 echo 'Porcentajes de paquetes por protocolo:'
