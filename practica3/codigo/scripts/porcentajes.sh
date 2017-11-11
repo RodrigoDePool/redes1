@@ -2,6 +2,8 @@
 
 #Este script manda como output los porcentajes de paquetes IP y NO-IP
 #Ademas, entre los paquetes IP distingue porcentajes de TCP/UDP/OTROS
+#La informacion impresa tambien sera guarada en datos/porcentajes
+
 
 #Creamos el fichero tshark si no existe ya 
 if ! [ -a tipos.tshark ]
@@ -9,7 +11,7 @@ then
 	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
-#Si no existe el directorio grafica, lo creamos
+#Si no existe el directorio datos, lo creamos
 mkdir -p datos
 
 # Evaluamos porcentajes de ip, no ip, tcp, udp y otros. Lo imprimimos por pantalla
@@ -17,12 +19,12 @@ awk 'BEGIN{ FS="\t"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; 
  {
 	lineas_totales = lineas_totales + 1;
 
-	if( $1 == "0x00000800" || $2 == "0x00000800" ){
+	if( $1 == 2048 || $2 == 2048 ){
 		lineas_ip = lineas_ip + 1;
 
-		if( $3 == "6")
+		if( $3 == 6 )
 			lineas_tcp = lineas_tcp + 1;
-		else if( $3 == "17" )
+		else if( $3 == 17 )
 			lineas_udp = lineas_udp + 1;
 	}
 } END{

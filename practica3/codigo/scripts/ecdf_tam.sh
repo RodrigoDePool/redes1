@@ -60,6 +60,7 @@ EOF
 
  rm input.tmp
 
-echo 'Grafica '${1}'_'${2}'.png creada en el directorio $GRAF'
+echo 'Datos de '${1}'_'${2}' creada en el directorio '$DATA
+echo 'Grafica '${1}'_'${2}'.png creada en el directorio '$GRAF
 
 exit 0

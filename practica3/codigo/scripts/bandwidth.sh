@@ -35,7 +35,7 @@ else
 	exit -1
 fi
 
-#Generamos fichero con segundo bits_de_ese_segundo en directorio datos
+#Generamos fichero  en directorio datos con: segundo bits_de_ese_segund
 awk -v col=${COL} -v mac=${MAC} 'BEGIN{ FS="\t"; maxsecs=0; }
 {
 	if( $col == mac ){ bytes[int($12)]+=$10; if(int($12)>maxsecs) maxsecs=int($12); }

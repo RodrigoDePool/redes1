@@ -23,59 +23,61 @@ then
 fi
 
 echo 'Porcentajes de paquetes por protocolo:'
-bash scripts/porcentajes.sh #Hara falta meterlo en un fichero ??
+bash scripts/porcentajes.sh
 echo ''
 
  echo 'Top 10 IP SRC PAQUETES'
- bash scripts/scriptTop.sh ip src paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh ip src paquetes 
  echo ''
 
  echo 'Top 10 IP SRC BYTES'
- bash scripts/scriptTop.sh ip src bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh ip src bytes 
  echo ''
 
  echo 'Top 10 IP DST PAQUETES'
- bash scripts/scriptTop.sh ip dst paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh ip dst paquetes 
  echo ''
 
  echo 'Top 10 IP SRC BYTES'
- bash scripts/scriptTop.sh ip dst bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh ip dst bytes 
  echo ''
 
  echo 'Top 10 TCP SRC PAQUETES'
- bash scripts/scriptTop.sh tcp src paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh tcp src paquetes 
  echo ''
 
  echo 'Top 10 TCP SRC BYTES'
- bash scripts/scriptTop.sh tcp src bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh tcp src bytes 
  echo ''
 
  echo 'Top 10 TCP DST PAQUETES'
- bash scripts/scriptTop.sh tcp dst paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh tcp dst paquetes 
  echo ''
 
  echo 'Top 10 TCP SRC BYTES'
- bash scripts/scriptTop.sh tcp dst bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh tcp dst bytes 
  echo ''
 
  echo 'Top 10 UDP SRC PAQUETES'
- bash scripts/scriptTop.sh udp src paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh udp src paquetes 
  echo ''
 
  echo 'Top 10 UDP SRC BYTES'
- bash scripts/scriptTop.sh udp src bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh udp src bytes 
  echo ''
 
  echo 'Top 10 UDP DST PAQUETES'
- bash scripts/scriptTop.sh udp dst paquetes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh udp dst paquetes 
  echo ''
 
  echo 'Top 10 UDP SRC BYTES'
- bash scripts/scriptTop.sh udp dst bytes #Hara falta meterlo en un fichero ??
+ bash scripts/scriptTop.sh udp dst bytes 
  echo ''
 
 #Creacion de ecdfs por tamano
 
+ echo 'ECDFs de tamanos'
+ echo ''
  bash scripts/ecdf_tam.sh eth src
  echo ''
  bash scripts/ecdf_tam.sh eth dst
@@ -90,17 +92,20 @@ echo ''
  echo ''
 
 #Creacion de ecdfs por tiempo
-
-# bash scripts/ecdf_tiempo.sh tcp src
-# echo ''
-# bash scripts/ecdf_tiempo.sh tcp dst
-# echo ''
-# bash scripts/ecdf_tiempo.sh udp src
-# echo ''
-# bash scripts/ecdf_tiempo.sh udp dst
-# echo ''
+echo 'ECDFs de tiempos'
+echo ''
+bash scripts/ecdf_tiempo.sh tcp src
+echo ''
+bash scripts/ecdf_tiempo.sh tcp dst
+echo ''
+bash scripts/ecdf_tiempo.sh udp src
+echo ''
+bash scripts/ecdf_tiempo.sh udp dst
+echo ''
 
 #Medicion de ancho de banda
+echo 'Grafica de anchos de banda'
+echo ''
 bash scripts/bandwidth.sh src
 echo ''
 bash scripts/bandwidth.sh dst
