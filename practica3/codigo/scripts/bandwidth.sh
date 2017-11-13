@@ -39,7 +39,7 @@ fi
 awk -v col=${COL} -v mac=${MAC} 'BEGIN{ FS="\t"; maxsecs=0; }
 {
 	if( $col == mac ){ bytes[int($12)]+=$10; if(int($12)>maxsecs) maxsecs=int($12); }
-} END{ for(time=0; time<=maxsecs; time++){ printf "%d\t%f\n",time,bytes[time] } }' tipos.tshark > datos/bandwidth_${1}
+} END{ for(time=0; time<=maxsecs; time++){ printf "%d\t%f\n",time,8*bytes[time] } }' tipos.tshark > datos/bandwidth_${1}
 
 
 #Generamos png
