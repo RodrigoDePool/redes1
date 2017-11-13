@@ -17,17 +17,17 @@ if [ "$1" = "eth" ]; then
     if [ "$2" = "src" ]; then COL_PORT="14";
     elif [ "$2" = "dst" ]; then COL_PORT="13";
     fi
-    COL_TAM="11"; FILTER=$MAC
+    COL_TAM="10"; FILTER=$MAC
 elif [ "$1" = "http" ]; then
     if [ "$2" = "src" ]; then COL_PORT="7";
     elif [ "$2" = "dst" ]; then COL_PORT="6";
     fi
-    COL_TAM="10"; FILTER="80"
+    COL_TAM="11"; FILTER="80"
 elif [ "$1" = "dns" ]; then
     if [ "$2" = "src" ]; then COL_PORT="9";
     elif [ "$2" = "dst" ]; then COL_PORT="8";
     fi
-    COL_TAM="10"; FILTER="53"
+    COL_TAM="11"; FILTER="53"
 else
     echo "Argumentos erroneos: http/dns/eth src/dst"
     exit -1
