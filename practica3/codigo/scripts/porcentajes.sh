@@ -19,7 +19,7 @@ awk 'BEGIN{ FS="\t"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; 
  {
 	lineas_totales = lineas_totales + 1;
 
-	if( $1 == "0x00000800" || $2 == "0x00000800" ){
+	if(match($1 ,"0800") || match($2 ,"0800")){
 		lineas_ip = lineas_ip + 1;
 
 		if( $3 == 6 )
