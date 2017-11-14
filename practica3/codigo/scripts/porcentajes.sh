@@ -19,7 +19,7 @@ awk 'BEGIN{ FS="\t"; lineas_totales=0; lineas_ip=0; lineas_udp=0; lineas_tcp=0; 
  {
 	lineas_totales = lineas_totales + 1;
 
-	if( $1 == 2048 || $2 == 2048 ){
+	if( strtonum($1) == 2048 || strtonum($2) == 2048 ){
 		lineas_ip = lineas_ip + 1;
 
 		if( $3 == 6 )
