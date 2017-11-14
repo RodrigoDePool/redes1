@@ -81,10 +81,19 @@ fi
 #Generamos el ECDF con el input y lo guardamos en datos
 ./scripts/crearCDF input.tmp datos/flujo_${1}_${2}
 
+#En caso de ser TCP utilizamos escala logaritmica en eje X, en caso UDP
+#Utilizamos escala normal
+if [ "$1" == "tcp" ]
+then
+	SCALE="set log x"
+else
+	SCALE="unset log x"
+fi
+
 #Ejecutamos gnuplot
 gnuplot << EOF
 set autoscale
-unset log
+${SCALE}
 unset label
 set title "Distribucion de variable aleaoria T = tiempo entre paquetes  \( flujo $2 con $1 \)"
 set xlabel "tiempo \(segundos\)"
