@@ -38,7 +38,7 @@ echo ''
  bash scripts/scriptTop.sh ip dst paquetes 
  echo ''
 
- echo 'Top 10 IP SRC BYTES'
+ echo 'Top 10 IP DST BYTES'
  bash scripts/scriptTop.sh ip dst bytes 
  echo ''
 
@@ -54,7 +54,7 @@ echo ''
  bash scripts/scriptTop.sh tcp dst paquetes 
  echo ''
 
- echo 'Top 10 TCP SRC BYTES'
+ echo 'Top 10 TCP DST BYTES'
  bash scripts/scriptTop.sh tcp dst bytes 
  echo ''
 
@@ -70,7 +70,7 @@ echo ''
  bash scripts/scriptTop.sh udp dst paquetes 
  echo ''
 
- echo 'Top 10 UDP SRC BYTES'
+ echo 'Top 10 UDP DST BYTES'
  bash scripts/scriptTop.sh udp dst bytes 
  echo ''
 
