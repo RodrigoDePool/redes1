@@ -11,6 +11,14 @@ DATA="datos/ecdf_tam/"
 GRAF="graficas/ecdf_tam/"
 mkdir -p $DATA
 mkdir -p $GRAF
+
+#Creamos el fichero tshark si no existe ya 
+if ! [ -a tipos.tshark ]
+then
+    tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
+fi
+
+
 #Probamos argumentos, establecemos filtro y nivel de filtrado
 if [ $2 != "dst" ] && [ $2 != "src" ]; then echo "Argumento 2 erroneo: src/dst"; exit -1; fi 
 if [ "$1" = "eth" ]; then

@@ -10,7 +10,7 @@ MAC="00:11:88:cc:33:ca"
 #Comprobamos cantidad de argumentos
 if [ "$#" != "1" ]
 then
-	echo 'Cantidad de argumentos erronea: src/dst'
+    echo 'Cantidad de argumentos erronea: src/dst'
 fi
 
 #Si no existe el directorio datos y graficas los crea
@@ -20,25 +20,25 @@ mkdir -p graficas
 #Si no existe el tipo.tshark lo creamos
 if ! [ -a tipos.tshark ]
 then
-	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
+    tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
 #Columna a filtrar por awk
 if [ "$1" == "src" ]
 then
-	COL=14
+    COL=14
 elif [ "$1" == "dst" ]
 then
-	COL=13
+    COL=13
 else
-	echo 'Argumento erroneo: src/dst'
-	exit -1
+    echo 'Argumento erroneo: src/dst'
+    exit -1
 fi
 
 #Generamos fichero  en directorio datos con: segundo bits_de_ese_segund
 awk -v col=${COL} -v mac=${MAC} 'BEGIN{ FS="\t"; maxsecs=0; }
 {
-	if( $col == mac ){ bytes[int($12)]+=$10; if(int($12)>maxsecs) maxsecs=int($12); }
+    if( $col == mac ){ bytes[int($12)]+=$10; if(int($12)>maxsecs) maxsecs=int($12); }
 } END{ for(time=0; time<=maxsecs; time++){ printf "%d\t%f\n",time,8*bytes[time] } }' tipos.tshark > datos/bandwidth_${1}
 
 

@@ -13,37 +13,37 @@ PORT="10455"
 #Comprobamos input
 if [ "$#" != "2" ]
 then
-	echo 'Introduzca dos argumentos: tcp/udp src/dst'
-	exit -1
+    echo 'Introduzca dos argumentos: tcp/udp src/dst'
+    exit -1
 fi
 
 #Creamos variables para filtrar en awk (Columna a comparar con la condicion)
 if [ "$1" == "tcp" ] && [ "$2" == "src" ]
 then
-	COL=5
-	CONDITION=${IP}
+    COL=5
+    CONDITION=${IP}
 elif [ "$1" == "tcp" ] && [ "$2" == "dst" ]
 then
-	COL=4
-	CONDITION=${IP}
+    COL=4
+    CONDITION=${IP}
 elif [ "$1" == "udp" ] && [ "$2" == "src" ]
 then
-	COL=9
-	CONDITION=${PORT}
+    COL=9
+    CONDITION=${PORT}
 elif [ "$1" == "udp" ] && [ "$2" == "dst" ]
 then
-	COL=8
-	CONDITION=${PORT}
+    COL=8
+    CONDITION=${PORT}
 else
-	echo 'Argumentos erroneos: tcp/udp src/dst'
-	exit -1
+    echo 'Argumentos erroneos: tcp/udp src/dst'
+    exit -1
 fi
 
 
 #Si no existe creamos el fichero de tshark
 if ! [ -a tipos.tshark ]
 then
-	tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
+    tshark -r traza.pcap -T fields -e eth.type -e vlan.etype -e ip.proto -e ip.dst -e ip.src -e tcp.dstport -e tcp.srcport -e udp.dstport -e udp.srcport -e frame.len -e ip.len -e frame.time_relative -e eth.dst -e eth.src > tipos.tshark
 fi
 
 
@@ -59,23 +59,23 @@ mkdir -p datos
 # en el caso de ser el primer paquete pone el interarrival a 0, en otro caso hace la resta entre
 # los tiempos.
 awk -v col=$COL -v cond=${CONDITION} -v prot=$1 'BEGIN{ FS="\t"; anterior=0; }{
-	if( prot != "tcp" || $6 != null ){
-		if( $col == cond ){
-			if( anterior == 0 ) interarrival=0;
-			else 				interarrival=$12-anterior;
-			printf "%f\n",interarrival;
-			anterior=$12;
-		}
-	}
+    if( prot != "tcp" || $6 != null ){
+        if( $col == cond ){
+            if( anterior == 0 ) interarrival=0;
+            else                interarrival=$12-anterior;
+            printf "%f\n",interarrival;
+            anterior=$12;
+        }
+    }
 
 }' tipos.tshark > input.tmp
 
 #En caso de que el filtro no deje pasar ningun paquete
 if ! [ -s input.tmp ]
 then
-	echo 'No hay paquetes en '${2}' con el flujo '${1}', no se generara grafica'
-	rm input.tmp
-	exit -1
+    echo 'No hay paquetes en '${2}' con el flujo '${1}', no se generara grafica'
+    rm input.tmp
+    exit -1
 fi
 
 #Generamos el ECDF con el input y lo guardamos en datos
@@ -85,9 +85,9 @@ fi
 #Utilizamos escala normal
 if [ "$1" == "tcp" ]
 then
-	SCALE="set log x"
+    SCALE="set log x"
 else
-	SCALE="unset log x"
+    SCALE="unset log x"
 fi
 
 #Ejecutamos gnuplot
