@@ -56,7 +56,7 @@ gnuplot << EOF
 set autoscale
 unset log
 unset label
-set title "Distribucion de variable aleaoria T = tamanio paquetes ${1} \(${2}\)"
+set title "Distribucion de variable T = tamanio paquetes ${1} \(${2}\)"
 set xlabel "tamanio \(bytes\)"
 set ylabel "P\( T <= tamanio \)"
 unset key

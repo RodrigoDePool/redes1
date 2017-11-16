@@ -95,7 +95,7 @@ gnuplot << EOF
 set autoscale
 ${SCALE}
 unset label
-set title "Distribucion de variable aleaoria T = tiempo entre paquetes  \( flujo $2 con $1 \)"
+set title "Distribucion de variable T = tiempo entre paquetes  \( flujo $2 con $1 \)"
 set xlabel "tiempo \(segundos\)"
 set ylabel "P\( T <= tiempo \)"
 unset key
