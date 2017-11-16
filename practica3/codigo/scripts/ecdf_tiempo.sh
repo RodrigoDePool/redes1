@@ -48,8 +48,8 @@ fi
 
 
 #Si no existen creamos los directorios graficas y datos
-mkdir -p graficas
-mkdir -p datos
+mkdir -p graficas/ecdf_tiempos/
+mkdir -p datos/ecdf_tiempos/
 
 #Pequeno resumen del funcionamiento de este awk criptico:
 # El primer if dejara pasar a todos los paquetes en caso de UDP
@@ -79,7 +79,7 @@ then
 fi
 
 #Generamos el ECDF con el input y lo guardamos en datos
-./scripts/crearCDF input.tmp datos/flujo_${1}_${2}
+./scripts/crearCDF input.tmp datos/ecdf_tiempos/flujo_${1}_${2}
 
 #En caso de ser TCP utilizamos escala logaritmica en eje X, en caso UDP
 #Utilizamos escala normal
@@ -100,14 +100,14 @@ set xlabel "tiempo \(segundos\)"
 set ylabel "P\( T <= tiempo \)"
 unset key
 set terminal png size 800,600
-set output "./graficas/flujo_${1}_${2}.png" 
-plot "datos/flujo_${1}_${2}" u 1:2 w steps
+set output "./graficas/ecdf_tiempos/flujo_${1}_${2}.png" 
+plot "datos/ecdf_tiempos/flujo_${1}_${2}" u 1:2 w steps
 EOF
 
 #Eliminamos el input temporal
 rm input.tmp
 
-echo 'Datos de flujo_'${1}'_'${2}' creada en el directorio datos'
-echo 'Grafica flujo_'${1}'_'${2}'.png creada en el directorio graficas'
+echo 'Datos de flujo_'${1}'_'${2}' creada en el directorio datos/ecdf_tiempos'
+echo 'Grafica flujo_'${1}'_'${2}'.png creada en el directorio graficas/ecdf_tiempos'
 
 exit 0
