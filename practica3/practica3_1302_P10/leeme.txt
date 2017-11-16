@@ -1,0 +1,17 @@
+Lucía Asencio Martín
+Rodrigo de Pool Alcántara
+
+Instrucciones de ejecución:
+* La traza generada debe llamarse traza.pcap, y estar incluida en el directorio "practica3_1302_P10" (directorio actual)
+* El script practica3_analisis.sh debe ejecutarse desde este mismo directorio, ya que referencia al makefile y la traza generada.
+
+Información de ejecución:
+* El script principal lee traza.pcap y guarda toda la información necesaria en tipos.tshark
+* Seguidamente, realiza todos los ejercicios de la práctica medianre 5 scripts, que son los que utilizan el fichero tipos.tshark. Estos scripts son:
+	- porcentajes.sh, para los porcentajes IP, no IP, etc.
+	- scriptTop.sh, para calcular todos los top 10 según los argumentos de entrada
+	- ecdf_tam.sh, para generar todas las ECDF de tamaños en función de argumentos de entrada
+	- ecdf_tiempo, para generar tdoas las ECDF de tiempos en función de argumentos de entrada
+	- bandwidth.sh, para generar la gráfica del ancho de banda
+* El script genera si no existieran dos directorios, "graficas" y "datos". En el primero se guardan las gráficas que va generando el script, y en el segundo se guardan los datos con los que se generan las distintas distribuciones, así como los porcentajes. Creamos este directorio por si acaso necesitáramos revisar datos en el examen.
+
