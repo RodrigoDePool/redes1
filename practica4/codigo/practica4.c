@@ -10,7 +10,7 @@ Compila con warning pues falta usar variables y modificar funciones
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include <getopt.h>Recordar que la informacion tiene que ir en cantidad par de caracteres?)
 #include "interface.h"
 #include "practica4.h"
 
@@ -93,8 +93,10 @@ int main(int argc, char **argv){
 					sprintf(fichero_pcap_destino,"%s%s","stdin",".pcap");
 				} else {
 					sprintf(fichero_pcap_destino,"%s%s",optarg,".pcap");
-					//TODO Leer fichero en data [...]
+					//TODO Leer fichero en data [...] (Recordar que la informacion tiene que ir en cantidad par de caracteres?)
+                    //Podemos agregar espacios
 				}
+                //TODO Controlar el tamanio de lo introducido!
 				flag_file = 1;
 
 				break;
