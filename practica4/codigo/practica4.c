@@ -10,7 +10,10 @@ Compila con warning pues falta usar variables y modificar funciones
 
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <string.h>
+=======
+>>>>>>> ce7638dc30f91453dd0c22600b25f782258c17e1
 #include <getopt.h>
 #include "interface.h"
 #include "practica4.h"
