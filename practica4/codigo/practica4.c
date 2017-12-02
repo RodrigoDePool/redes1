@@ -356,9 +356,19 @@ printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);
 ****************************************************************************************/
 
 uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
-//TODO
-//[....]
-
+	uint8_t segmento[IP_DATAGRAM_MAX]={0};
+	uint16_t suma_control=0;
+	uint16_t aux16;
+	uint32_t pos=0;
+	uint16_t protocolo_inferior=pila_protocolos[1];
+	Parametros icmpdatos=*((Parametros*)parametros);
+    
+    memcpy(segmento, &(icmpdatos.tipo), sizeof(uint8_t) );
+    pos += sizeof(uint8_t);
+    memcpy(segmento+pos, &(icmpdatos.codigo), sizeof(uint8_t) );
+    pos += sizeof(uint8_t);
+    memcpy(segmento+pos, )
+    
 }
 
 
