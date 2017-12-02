@@ -367,7 +367,8 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     pos += sizeof(uint8_t);
     memcpy(segmento+pos, &(icmpdatos.codigo), sizeof(uint8_t) );
     pos += sizeof(uint8_t);
-    memcpy(segmento+pos, )
+    segmento+pos = (uint8_t)0;
+
     
 }
 
