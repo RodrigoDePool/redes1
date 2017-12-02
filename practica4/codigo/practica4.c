@@ -38,7 +38,7 @@ int main(int argc, char **argv){
 	uint16_t puerto_destino;
 	char data[IP_DATAGRAM_MAX];
 	uint16_t pila_protocolos[CADENAS];
-
+    FILE *file_in;
 
 	int long_index=0;
 	char opt;
@@ -87,17 +87,26 @@ int main(int argc, char **argv){
 
 				if(strcmp(optarg,"stdin")==0) {
 					if (fgets(data, sizeof data, stdin)==NULL) {
-						  	printf("Error leyendo desde stdin: %s %s %d.\n",errbuf,__FILE__,__LINE__);
+						printf("Error leyendo desde stdin: %s %s %d.\n",errbuf,__FILE__,__LINE__);
 						return ERROR;
 					}
 					sprintf(fichero_pcap_destino,"%s%s","stdin",".pcap");
 				} else {
 					sprintf(fichero_pcap_destino,"%s%s",optarg,".pcap");
-					//TODO Leer fichero en data [...] (Recordar que la informacion tiene que ir en cantidad par de caracteres?)
-                    //Podemos agregar espacios
-				}
-                //TODO Controlar el tamanio de lo introducido!
-				flag_file = 1;
+                    file_in = fopen(optarg,'r');
+                    if (file_in == NULL){
+                        printf("Error leyendo el fichero %s: %s %s %d.\n",optarg,errbuf,__FILE__,__LINE__);
+                        return ERROR;
+                    }
+                    if (fgets(data, sizeof data, file_in)==NULL) {
+                        fclose(file_in);
+						printf("Error leyendo desde stdin: %s %s %d.\n",errbuf,__FILE__,__LINE__);
+						return ERROR;
+					}
+                    fclose(file_in);
+                }
+                //TODO: Tiene que ser par?
+                flag_file = 1;
 
 				break;
 
@@ -196,7 +205,7 @@ int main(int argc, char **argv){
 
 uint8_t enviar(uint8_t* mensaje, uint64_t longitud,uint16_t* pila_protocolos,void *parametros){
 	uint16_t protocolo=pila_protocolos[0];
-printf("Enviar(%"PRIu16") %s %d.\n",protocolo,__FILE__,__LINE__);
+    printf("Enviar(%"PRIu16") %s %d.\n",protocolo,__FILE__,__LINE__);
 	if(protocolos_registrados[protocolo]==NULL){
 		printf("Protocolo %"PRIu16" desconocido\n",protocolo);
 		return ERROR;
@@ -227,23 +236,31 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
 	uint16_t aux16;
 	uint32_t pos=0;
 	uint16_t protocolo_inferior=pila_protocolos[1];
-printf("modulo UDP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
+    printf("modulo UDP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
-	if (longitud>(pow(2,16)-UDP_HLEN)){
-		printf("Error: mensaje demasiado grande para UDP (%f).\n",(pow(2,16)-UDP_HLEN));
+	if (longitud>UDP_SEG_MAX-UDP_HLEN){
+		printf("Error: mensaje demasiado grande para UDP (%f).\n",UDP_SEG_MAX-UDP_HLEN);
 		return ERROR;
 	}
 
 	Parametros udpdatos=*((Parametros*)parametros);
 	uint16_t puerto_destino=udpdatos.puerto_destino;
 
-//TODO
-//[...] 
-//obtenerPuertoOrigen(·)
+    /*Agregamos el puerto origen al paquete*/
+    if( obtenerPuertoOrigen(&puerto_origen) == ERROR){
+        printf("Error: fallo al solicitar puerto origen.\n");
+        return ERROR;
+    }
 	aux16=htons(puerto_origen);
-	memcpy(segmento+pos,&aux16,sizeof(uint16_t));
-	pos+=sizeof(uint16_t);
-	
+	memcpy(segmento,&aux16,sizeof(uint16_t));
+	pos+=sizeof(uint16_t); /*reposicionamos el segmento*/
+
+    /*Agregamos el puerto destino*/
+    aux16=htons(puerto_destino);
+    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+
+    
 //TODO Completar el segmento [...]
 //[...] 
 //Se llama al protocolo definido de nivel inferior a traves de los punteros registrados en la tabla de protocolos registrados

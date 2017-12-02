@@ -1,0 +1,15 @@
+Protocolo ICMP
+Protocolo UDP
+Protocolo ETH
+Protocolo IP
+aplicarMascara
+leer argumentos de fichero (HECHO)
+
+
+- Por que piden que sean pares los caracteeres de data??
+Para udp no es necesario y para ICMP se envia otros caracteres
+
+Estos son cambios que hice que no estoy del todos eguro si estan bien:
+- Cambie el IPDATAGRAM_MAX por 65535 (antes era 65536 ), igual con UDP
+- Agregue define IP_HLEN 20
+
