@@ -315,7 +315,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	pila_protocolos++;
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
 
-printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
+    printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	Parametros ipdatos=*((Parametros*)parametros);
 	uint8_t* IP_destino=ipdatos.IP_destino;
@@ -480,11 +480,11 @@ uint8_t inicializarPilaEnviar() {
 		return ERROR;
 	if(registrarProtocolo(IP_PROTO, moduloIP, protocolos_registrados)==ERROR)
 		return ERROR;
-	
-//TODO
-//A registrar los modulos de UDP y ICMP [...] 
-
-	return OK;
+    if(registrarProtocolo(UDP_PROTO, moduloUDP, protocolos_registrados)==ERROR)
+        return ERROR;
+    if(registrarProtocolo(ICMP_PROTO, moduloICMP, protocolos_registrados)==ERROR)
+        return ERROR;
+    return OK;
 }
 
 
