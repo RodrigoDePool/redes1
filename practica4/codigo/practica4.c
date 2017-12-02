@@ -326,24 +326,24 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 
     /*Agregamos la version y el IHL */
     aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
-    memcpy(segmento,aux8,sizeof(uint8_t));
+    memcpy(segmento,&aux8,sizeof(uint8_t));
     pos+=sizeof(uint8_t);
 
     /*Agregamos campo tipo de servicio a cero*/
     aux8 = 0;
-    memcpy(segmento+pos,aux8,sizeof(uint8_t));
+    memcpy(segmento+pos,&aux8,sizeof(uint8_t));
     pos+=sizeof(uint8_t);
 
     /*Agregamos la longitud*/
     aux16 = IP_HLEN + longitud;
     aux16 = htons(aux16);
-    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
     pos+=sizeof(uint16_t);
 
     /*Agregamos el identificador*/
     aux16 = htons(ID);
     ID++; /*Lo incrementamos para el siguiente paquete*/
-    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
     pos+=sizeof(uint16_t);
     
     //TODO
