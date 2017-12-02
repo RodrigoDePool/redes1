@@ -95,7 +95,7 @@ int main(int argc, char **argv){
 					sprintf(fichero_pcap_destino,"%s%s","stdin",".pcap");
 				} else {
 					sprintf(fichero_pcap_destino,"%s%s",optarg,".pcap");
-                    file_in = fopen(optarg,'r');
+                    file_in = fopen(optarg,"r");
                     if (file_in == NULL){
                         printf("Error leyendo el fichero %s: %s %s %d.\n",optarg,errbuf,__FILE__,__LINE__);
                         return ERROR;
@@ -175,7 +175,7 @@ int main(int argc, char **argv){
 		//Rellenamos los parametros necesario para enviar el paquete a su destinatario y proceso
 	Parametros parametros_udp; memcpy(parametros_udp.IP_destino,IP_destino_red,IP_ALEN); parametros_udp.puerto_destino=puerto_destino;
 		//Enviamos
-	if(enviar((uint8_t*)data,pila_protocolos,strlen(data),&parametros_udp)==ERROR ){
+	if(enviar((uint8_t*)data,strlen(data),pila_protocolos,&parametros_udp)==ERROR ){
 		printf("Error: enviar(): %s %s %d.\n",errbuf,__FILE__,__LINE__);
 		return ERROR;
 	}
@@ -186,7 +186,7 @@ int main(int argc, char **argv){
 		//Luego, un paquete ICMP en concreto un ping
 	pila_protocolos[0]=ICMP_PROTO; pila_protocolos[1]=IP_PROTO; pila_protocolos[2]=0;
 	Parametros parametros_icmp; parametros_icmp.tipo=PING_TIPO; parametros_icmp.codigo=PING_CODE; memcpy(parametros_icmp.IP_destino,IP_destino_red,IP_ALEN);
-	if(enviar((uint8_t*)"Probando a hacer un ping",pila_protocolos,strlen("Probando a hacer un ping"),&parametros_icmp)==ERROR ){
+	if(enviar((uint8_t*)"Probando a hacer un ping",strlen("Probando a hacer un ping"),pila_protocolos,&parametros_icmp)==ERROR ){
 		printf("Error: enviar(): %s %s %d.\n",errbuf,__FILE__,__LINE__);
 		return ERROR;
 	}
@@ -249,7 +249,7 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
     printf("modulo UDP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	if (longitud>UDP_SEG_MAX-UDP_HLEN){
-		printf("Error: mensaje demasiado grande para UDP (%f).\n",UDP_SEG_MAX-UDP_HLEN);
+		printf("Error: mensaje demasiado grande para UDP (%d).\n",UDP_SEG_MAX-UDP_HLEN);
 		return ERROR;
 	}
 
@@ -282,7 +282,7 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
     pos+=sizeof(uint16_t);
 
     /*Agregamos los datos*/
-    segmento+pos=mensaje;
+    memcpy(segmento + pos, mensaje, sizeof(char)*longitud);
     pos+=sizeof(mensaje);
 
 	return protocolos_registrados[protocolo_inferior](segmento,long_udp,pila_protocolos,parametros);
