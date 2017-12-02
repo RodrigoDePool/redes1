@@ -96,4 +96,7 @@ void handleSignal(int nsignal);
 uint8_t aplicarMascara(uint8_t* IP, uint8_t* mascara, uint32_t longitud, uint8_t* resultado);
 
 
+/*Funciones agregadas por los estudiantes*/
+uint8_t pertenece_redLocal(uint8_t *localNet, uint8_t *ip, int longitud, uint8_t *bool);
+
 #endif

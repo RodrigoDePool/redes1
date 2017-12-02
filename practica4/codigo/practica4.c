@@ -241,7 +241,7 @@ uint8_t enviar(uint8_t* mensaje, uint64_t longitud,uint16_t* pila_protocolos,voi
 
 uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
 	uint8_t segmento[UDP_SEG_MAX]={0};
-	uint16_t puerto_origen = 0,suma_control=0;
+	uint16_t puerto_origen = 0;
 	uint16_t aux16;
 	uint32_t pos=0;
 	uint16_t protocolo_inferior=pila_protocolos[1];
@@ -306,13 +306,14 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	uint8_t datagrama[IP_DATAGRAM_MAX]={0};
 	uint32_t aux32;
 	uint16_t aux16;
-	uint8_t aux8;
+	uint8_t aux8,resultado;
 	uint32_t pos=0,pos_control=0;
 	uint8_t IP_origen[IP_ALEN];
 	uint16_t protocolo_superior=pila_protocolos[0];
 	uint16_t protocolo_inferior=pila_protocolos[2];
 	pila_protocolos++;
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
+    uint8_t IP_gateway[IP_ALEN], localNet[IP_ALEN];
     uint16_t MTU;
     
     printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
@@ -324,13 +325,47 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         printf("Error: mensaje demasiado grande para IP (%d).\n", IP_DATAGRAM_MAX-IP_HLEN);
 		return ERROR;
     }
-
     if(obtenerMTUInterface(interface,&MTU) == ERROR){
-        printf("Error: el metu no pudo capturarse con exito.\n");
+        printf("Error: el mtu no se obtuvo con exito.\n");
+        return ERROR;
+    }
+    if(obtenerIPInterface(interface,IP_origen)==ERROR){
+        printf("Error: el ip origen no se obtuvo con exito,\n");
+        return ERROR;
+    }
+    if(obtenerMascaraInterface(interface,mascara)==ERROR){
+        printf("Error: no se pudo obtener la mascara de red.\n");
+        return ERROR;
+    }
+
+    /*Aplicamos mascara y establecemos el eth_destino en parametros*/
+    if(aplicarMascara(IP_origen,mascara,IP_ALEN,localNet)==ERROR){
+        printf("Error: fallo al aplicar la mascara.\n");
+        return ERROR;
+    }
+    if( pertenece_redLocal(localNet,IP_destino, IP_ALEN,&resultado) == ERROR){
+        printf("Error: no se pudo revisar si la ip destino pertenece a la red local.\n");
         return ERROR;
     }
     
-    /*GESTIONAR QUE MAC HAY QUE COLOCAR EN PARAMETROS (IPMASCARA Y ARPREQUEST)*/
+    /*Establecemos el mac destino correspondiente*/
+    if( resultado == 1){/*Pertenece a la red local*/
+        if( ARPrequest(interface,IP_destino, ipdatos.ETH_destino) == ERROR){
+            printf("Error: fallo al hacer arprequest.\n");
+            return ERROR;
+        }
+    }else{/*no pertenece*/
+        if(obtenerGateway(interface,IP_gateway)== ERROR){
+            printf("Error: fallo al obtener IP del gateway.\n");
+            return ERROR;
+        }
+        if( ARPrequest(interface,IP_gateway, ipdatos.ETH_destino) == ERROR){
+            printf("Error: fallo al hacer arprequest del gateway.\n");
+            return ERROR;
+        }
+
+    }
+
     
     /*BUCLE DE FRAGMENTACION DE MTU*/
     
@@ -355,9 +390,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     aux16 = htons(ID);
     ID++; /*Lo incrementamos para el siguiente paquete*/
     memcpy(segmento+pos,&aux16,sizeof(uint16_t));
-    pos+=sizeof(uint16_t);
-    
-    
+    pos+=sizeof(uint16_t);    
 
     //llamada/s a protocolo de nivel inferior [...]
     
@@ -458,13 +491,45 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
 *  -IP: IP a la que aplicar la mascara en orden de red					*
 *  -mascara: mascara a aplicar en orden de red						*
 *  -longitud: bytes que componen la direccion (IPv4 == 4)				*
-*  -resultado: Resultados de aplicar mascara en IP en orden red				*
+*  -resultado: Resultados de aplicar mascara en IP en orden red
 * Retorno: OK/ERROR									*
 ****************************************************************************************/
 
 uint8_t aplicarMascara(uint8_t* IP, uint8_t* mascara, uint32_t longitud, uint8_t* resultado){
-//TODO
-//[...]
+    int i;
+    
+    if(IP == NULL || mascara == NULL){
+        return ERROR;
+    }
+    for(i=0; i<longitud; i++){
+        resultado[i] = IP[i] & mascara[i];
+    }
+    return OK;
+}
+
+/****************************************************************************************
+ * Nombre: pertenece_redLocal
+ * Descripcion: Devuelve si una ip pertence o no a una red local
+ * Argumentos:
+ * - localNet: And entre las mascara y una ip de la red local
+ * - ip: ip a probar si esta o no en la red
+ * - longitud: tamanio de ip
+ * - bool: se escribira 1 en caso de que pertenezca a la red, 0 en caso contrario
+ * Retorno: OK/ERROR
+ ***************************************************************************************/
+uint8_t pertenece_redLocal(uint8_t *localNet, uint8_t *ip, int longitud, uint8_t *bool){
+    int i;
+    if( localNet == NULL || ip == NULL || bool == NULL) return ERROR;
+    
+    for( i = 0 ; i< longitud; i++){
+        /*Se devuelve 0 si no pertence a la mascara de la red*/
+        if( (localNet[i] & ip[i]) != localNet[i]){
+            *bool=0;
+            return OK;
+        }
+    }
+    *bool=1;
+    return OK;
 }
 
 
