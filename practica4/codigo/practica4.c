@@ -313,7 +313,8 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	uint16_t protocolo_inferior=pila_protocolos[2];
 	pila_protocolos++;
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
-
+    uint16_t MTU;
+    
     printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	Parametros ipdatos=*((Parametros*)parametros);
@@ -324,6 +325,15 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 		return ERROR;
     }
 
+    if(obtenerMTUInterface(interface,&MTU) == ERROR){
+        printf("Error: el metu no pudo capturarse con exito.\n");
+        return ERROR;
+    }
+    
+    /*GESTIONAR QUE MAC HAY QUE COLOCAR EN PARAMETROS (IPMASCARA Y ARPREQUEST)*/
+    
+    /*BUCLE DE FRAGMENTACION DE MTU*/
+    
     /*Agregamos la version y el IHL */
     aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
     memcpy(segmento,&aux8,sizeof(uint8_t));
@@ -346,14 +356,10 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     memcpy(segmento+pos,&aux16,sizeof(uint16_t));
     pos+=sizeof(uint16_t);
     
-    //TODO
-//Llamar a ARPrequest(·) adecuadamente y usar ETH_destino de la estructura parametros
-//[...] 
-//TODO A implementar el datagrama y fragmentación (en caso contrario, control de tamano)
-//[...] 
-//llamada/s a protocolo de nivel inferior [...]
     
-    /*GESTIONAR QUE MAC HAY QUE COLOCAR EN PARAMETROS (IPMASCARA Y ARPREQUEST)*/
+
+    //llamada/s a protocolo de nivel inferior [...]
+    
 }
 
 
