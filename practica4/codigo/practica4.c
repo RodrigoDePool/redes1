@@ -10,7 +10,7 @@ Compila con warning pues falta usar variables y modificar funciones
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>Recordar que la informacion tiene que ir en cantidad par de caracteres?)
+#include <getopt.h>
 #include "interface.h"
 #include "practica4.h"
 

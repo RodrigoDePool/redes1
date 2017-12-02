@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html dir="ltr" xml:lang="es" class="no-js yui3-js-enabled" lang="es"><head>
+    <title>2017_17835_130_2: Práctica 4, sesiones 9/10/11: Tráfico sintético</title>
+    <link rel="shortcut icon" href="https://moodle.uam.es/pluginfile.php/1/theme_essential/favicon/1510852633/favicon-uam.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="moodle, 2017_17835_130_2: Práctica 4, sesiones 9/10/11: Tráfico sintético">
+<link rel="stylesheet" type="text/css" href="enunciado_files/yui_combo_002.css"><script charset="utf-8" id="yui_3_17_2_1_1512216448170_8" src="enunciado_files/yui_combo.js" async=""></script><link charset="utf-8" rel="stylesheet" id="yui_3_17_2_1_1512216448170_36" href="enunciado_files/yui_combo.css"><script charset="utf-8" id="yui_3_17_2_1_1512216448170_37" src="enunciado_files/yui_combo_003.js" async=""></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="enunciado_files/all.css">
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/moodle.uam.es","sesskey":"faV8XkhvnR","loadingicon":"https:\/\/moodle.uam.es\/theme\/image.php\/essential\/core\/1510852633\/i\/loading_small","themerev":"1510852633","slasharguments":1,"theme":"essential","jsrev":"1510852633","admin":"admin","svgicons":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''};if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else me.path=component+'/'+component+'.'+me.type};
+YUI_config = {"debug":false,"base":"https:\/\/moodle.uam.es\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/moodle.uam.es\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/moodle.uam.es\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/moodle.uam.es\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/moodle.uam.es\/theme\/yui_combo.php?m\/1510852633\/","combine":true,"comboBase":"https:\/\/moodle.uam.es\/theme\/yui_combo.php?","ext":false,"root":"m\/1510852633\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-event":{"requires":["event-custom"]},"moodle-core-formautosubmit":{"requires":["base","event-key"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader","moodle-core-event"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core_availability-form":{"requires":["base","node","event","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-calendar-info":{"requires":["base","node","event-mouseenter","event-key","overlay","moodle-calendar-info-skin"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-toolboxes":{"requires":["node","base","event-key","node","io","moodle-course-coursebase","moodle-course-util"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":["node","base"]},"moodle-core_message-deletemessage":{"requires":["node","event"]},"moodle-core_message-messenger":{"requires":["escape","handlebars","io-base","moodle-core-notification-ajaxexception","moodle-core-notification-alert","moodle-core-notification-dialogue","moodle-core-notification-exception"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-qtype_ddimageortext-form":{"requires":["moodle-qtype_ddimageortext-dd","form_filepicker"]},"moodle-qtype_ddimageortext-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-qtype_ddmarker-form":{"requires":["moodle-qtype_ddmarker-dd","form_filepicker","graphics","escape"]},"moodle-qtype_ddmarker-dd":{"requires":["node","event-resize","dd","dd-drop","dd-constrain","graphics"]},"moodle-qtype_ddwtos-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_attendance-groupfilter":{"requires":["base","node"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-util":{"requires":["node"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-quizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_html-button":{"requires":["moodle-editor_atto-plugin","event-valuechange"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_wiris-button":{"requires":["moodle-editor_atto-plugin","get"]}}},"gallery":{"name":"gallery","base":"https:\/\/moodle.uam.es\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/moodle.uam.es\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1510852633\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/moodle.uam.es\/lib\/javascript.php\/1510852633\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/moodle.uam.es\/lib\/javascript.php\/1510852633\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/mathjax\/2.6.1\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google web fonts -->
+        <!-- iOS Homescreen Icons -->
+    
+<link rel="apple-touch-icon" sizes="57x57" href="https://moodle.uam.es/theme/image.php/essential/theme/1510852633/homeicon/iphone">
+<link rel="apple-touch-icon" sizes="72x72" href="https://moodle.uam.es/theme/image.php/essential/theme/1510852633/homeicon/ipad">
+<link rel="apple-touch-icon" sizes="114x114" href="https://moodle.uam.es/theme/image.php/essential/theme/1510852633/homeicon/iphone_retina">
+<link rel="apple-touch-icon" sizes="144x144" href="https://moodle.uam.es/theme/image.php/essential/theme/1510852633/homeicon/ipad_retina">    <!-- Start Analytics -->
+        <!-- End Analytics -->
+<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="core/first" src="enunciado_files/first.js"></script><script type="text/x-mathjax-config">
+
+MathJax.Hub.Config({
+    config: ["Accessible.js", "Safe.js"],
+    errorSettings: { message: ["!"] },
+    skipStartupTypeset: true,
+    messageStyle: "none"
+});
+</script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jqueryprivate" src="enunciado_files/jquery-private.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="enunciado_files/jquery-1.js"></script><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+
+<body id="page-mod-page-view" class="format-topics  path-mod path-mod-page gecko dir-ltr lang-es yui-skin-sam yui3-skin-sam moodle-uam-es pagelayout-incourse course-46903 context-1409999 cmid-720139 category-4443 loggedin desktopdevice pagewidthvariable hasboringlayout floatingsubmit has-region-side-pre used-region-side-pre has-region-footer-left empty-region-footer-left has-region-footer-middle empty-region-footer-middle has-region-footer-right empty-region-footer-right has-region-header empty-region-header has-region-page-top empty-region-page-top side-pre-only jsenabled">
+
+<div class="skiplinks"><a class="skip" href="#maincontent">Salta al contenido principal</a></div>
+<script type="text/javascript" src="enunciado_files/yui_combo_002.js"></script><div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important" class=""></div><script type="text/javascript" src="enunciado_files/javascript-static.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+<header role="banner">
+    <nav id="essentialnavbar" role="navigation" class="moodle-has-zindex nologo">
+        <div class="navbar">
+            <div class="container-fluid navbar-inner">
+                <div class="row-fluid">
+                    <div class="custommenus pull-left">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target="#essentialmenus">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://moodle.uam.es/">e-learning UAM</a>                    <div class="pull-right">
+                        <div class="usermenu navbarrightitem">
+                            <ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="enunciado_files/f1.svg" alt="Imagen de Lucia Asencio Martin" title="Imagen de Lucia Asencio Martin" class="userpicture defaultuserpic" width="64" height="64">Lucia<span aria-hidden="true" class="fa fa-caret-right"></span></a><ul class="dropdown-menu pull-right"><li><a href="https://moodle.uam.es/user/profile.php?id=129293"><em><span aria-hidden="true" class="fa fa-user"></span>Lucia Asencio Martin</em></a></li><li class="dropdown-submenu preferences"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><em><span aria-hidden="true" class="fa fa-cog"></span>Preferencias</em></a><ul class="dropdown-menu"><li><a href="https://moodle.uam.es/user/preferences.php?userid=129293"><em><span aria-hidden="true" class="fa fa-user"></span>Usuario</em></a></li><li><a href="https://moodle.uam.es/user/edit.php?id=129293"><em><span aria-hidden="true" class="fa fa-info-circle"></span>Editar perfil</em></a></li><li><a href="https://moodle.uam.es/login/change_password.php"><em><span aria-hidden="true" class="fa fa-key"></span>Cambiar contraseña</em></a></li><li><a href="https://moodle.uam.es/message/edit.php?id=129293"><em><span aria-hidden="true" class="fa fa-comments"></span>Mensaje</em></a></li><li><a href="https://moodle.uam.es/blog/preferences.php"><em><span aria-hidden="true" class="fa fa-rss-square"></span>Blog</em></a></li><li><a href="https://moodle.uam.es/badges/preferences.php"><em><span aria-hidden="true" class="fa fa-certificate"></span>Insignia</em></a></li></ul></li><hr class="sep"><li><a href="https://moodle.uam.es/calendar/view.php"><em><span aria-hidden="true" class="fa fa-calendar"></span>Calendario</em></a></li><li><a href="https://moodle.uam.es/message/index.php"><em><span aria-hidden="true" class="fa fa-envelope"></span>Mensajes</em></a></li><li><a href="https://moodle.uam.es/mod/forum/user.php?id=129293"><em><span aria-hidden="true" class="fa fa-list-alt"></span>Mensajes en foros</em></a></li><li><a href="https://moodle.uam.es/mod/forum/user.php?id=129293&amp;mode=discussions"><em><span aria-hidden="true" class="fa fa-list"></span>Debates</em></a></li><hr class="sep"><li><a href="https://moodle.uam.es/grade/report/overview/index.php?userid=129293&amp;id=46903"><em><span aria-hidden="true" class="fa fa-list-alt"></span>Mis calificaciones</em></a></li><li><a href="https://moodle.uam.es/grade/report/user/index.php?id=46903&amp;userid=129293"><em><span aria-hidden="true" class="fa fa-list-alt"></span>Calificaciones de los cursos</em></a></li><li><a href="https://moodle.uam.es/badges/mybadges.php"><em><span aria-hidden="true" class="fa fa-certificate"></span>Insignias</em></a></li><hr class="sep"><li><a href="https://moodle.uam.es/login/logout.php?sesskey=faV8XkhvnR"><em><span aria-hidden="true" class="fa fa-sign-out"></span>Salir</em></a></li></ul></li></ul>                        </div>
+                        <div class="messagemenu navbarrightitem">
+                            <ul class="nav"><li class="dropdown"><a href="https://moodle.uam.es/message/index.php?viewing=recentconversations" class="dropdown-toggle" data-toggle="dropdown" title="5 mensajes sin leer"><span>5</span><span aria-hidden="true" class="fa fa-envelope"></span><span aria-hidden="true" class="fa fa-caret-right"></span></a><div class="dropdown-menu"><ul><li><a title="Hola,
+
+Este men..." href="https://moodle.uam.es/message/index.php?user1=129293&amp;user2=891"><div class="message unread"><span class="msg-picture"><img src="enunciado_files/f1.png" alt="Imagen de Ivan Gonzalez" title="Imagen de Ivan Gonzalez" class="userpicture" width="72" height="72"></span><span class="msg-body"><span class="msg-time"><span aria-hidden="true" class="fa fa-comments"></span>hace 10 días</span><span class="msg-sender">Ivan</span><span class="msg-text">Hola,
+
+Este men...</span></span></div></a></li><li><a title="Hola,
+
+A petici..." href="https://moodle.uam.es/message/index.php?user1=129293&amp;user2=891"><div class="message unread"><span class="msg-picture"><img src="enunciado_files/f1.png" alt="Imagen de Ivan Gonzalez" title="Imagen de Ivan Gonzalez" class="userpicture" width="72" height="72"></span><span class="msg-body"><span class="msg-time"><span aria-hidden="true" class="fa fa-comments"></span>hace 15 días</span><span class="msg-sender">Ivan</span><span class="msg-text">Hola,
+
+A petici...</span></span></div></a></li><li><a title="Hola,
+
+Se ha de..." href="https://moodle.uam.es/message/index.php?user1=129293&amp;user2=891"><div class="message unread"><span class="msg-picture"><img src="enunciado_files/f1.png" alt="Imagen de Ivan Gonzalez" title="Imagen de Ivan Gonzalez" class="userpicture" width="72" height="72"></span><span class="msg-body"><span class="msg-time"><span aria-hidden="true" class="fa fa-comments"></span>hace 15 días</span><span class="msg-sender">Ivan</span><span class="msg-text">Hola,
+
+Se ha de...</span></span></div></a></li><li><a title="Buenas tardes:
+..." href="https://moodle.uam.es/message/index.php?user1=129293&amp;user2=134882"><div class="message unread"><span class="msg-picture"><img src="enunciado_files/f1.svg" alt="Imagen de Carlos Abad Reigadas" title="Imagen de Carlos Abad Reigadas" class="userpicture defaultuserpic" width="72" height="72"></span><span class="msg-body"><span class="msg-time"><span aria-hidden="true" class="fa fa-comments"></span>hace 18 días</span><span class="msg-sender">Carlos</span><span class="msg-text">Buenas tardes:
+...</span></span></div></a></li><li><a title="hola, necesitas..." href="https://moodle.uam.es/message/index.php?user1=129293&amp;user2=129621"><div class="message unread"><span class="msg-picture"><img src="enunciado_files/f1.jpeg" alt="Imagen de Luis Cárabe Fernández-Pedraza" title="Imagen de Luis Cárabe Fernández-Pedraza" class="userpicture" width="72" height="72"></span><span class="msg-body"><span class="msg-time"><span aria-hidden="true" class="fa fa-comments"></span>hace 1 Mes</span><span class="msg-sender">Luis</span><span class="msg-text">hola, necesitas...</span></span></div></a></li></ul></div></li></ul>                        </div>
+                        <div class="navbarrightitem">
+                            <ul class="nav"><li><a title="Ir al fondo de la página" href="#region-main"><span aria-hidden="true" class="fa fa-arrow-circle-o-down"></span></a></li></ul>                        </div>
+                        <div id="custom_menu_editing" class="navbarrightitem">
+                                                    </div>
+                        <div class="navbarrightitem">
+                                                    </div>
+                    </div>
+                        <div id="essentialmenus" class="nav-collapse collapse pull-left">
+                            <div id="custom_menu_language" class="custom_menu"><ul class="nav"><li class="dropdown langmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Idioma"><span aria-hidden="true" class="fa fa-flag"></span>Español - Internacional ‎(es)‎<span aria-hidden="true" class="fa fa-caret-right"></span></a><div class="dropdown-menu"><ul><li><a title="English ‎(en)‎" href="https://moodle.uam.es/mod/page/view.php?id=720139&amp;lang=en"><span aria-hidden="true" class="fa fa-language"></span>English ‎(en)‎</a></li><li><a title="Español - Internacional ‎(es)‎" href="https://moodle.uam.es/mod/page/view.php?id=720139&amp;lang=es"><span aria-hidden="true" class="fa fa-language"></span>Español - Internacional ‎(es)‎</a></li></ul></div></li></ul></div><div id="custom_menu_courses" class="custom_menu"><ul class="nav"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mis últimos cursos"><span aria-hidden="true" class="fa fa-briefcase"></span>Mis últimos cursos<span aria-hidden="true" class="fa fa-caret-right"></span></a><div class="dropdown-menu"><ul><li><a title="Área personal" href="https://moodle.uam.es/my/index.php"><span><span aria-hidden="true" class="fa fa-home"></span><span> Área personal</span></span></a></li><li><a title="2017_17834_1312_1" href="https://moodle.uam.es/course/view.php?id=46095"><span class="onlyenrolled"><span aria-hidden="true" class="fa fa-graduation-cap"></span>ARQUITECTURA DE ORDENADORES (Grupo 1312)</span></a></li><li><a title="2017_17835_130_2" href="https://moodle.uam.es/course/view.php?id=46903"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>REDES DE COMUNICACIONES I</span></a></li><li><a title="2017_16444_2301_1" href="https://moodle.uam.es/course/view.php?id=46255"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ECUACIONES DIFERENCIALES (Grupo 2301)</span></a></li><li><a title="2017_17841_230_1" href="https://moodle.uam.es/course/view.php?id=48403"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>REDES DE COMUNICACIONES II</span></a></li><li><a title="2017_16445_2301_1" href="https://moodle.uam.es/course/view.php?id=46256"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>GEOMETRÍA DE CURVAS Y SUPERFICIES (Grupo 2301)</span></a></li><li><a title="2017_17840_230_1" href="https://moodle.uam.es/course/view.php?id=46253"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>INTELIGENCIA ARTIFICIAL (Grupo 230)</span></a></li><li><a title="2017_191000_1455_1" href="https://moodle.uam.es/course/view.php?id=46978"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>Tutoría Gabino Gonzalez Diez</span></a></li><li><a title="2017_17830_235_1" href="https://moodle.uam.es/course/view.php?id=46252"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>SISTEMAS BASADOS EN MICROPROCESADORES (Grupo 235)</span></a></li><li><a title="2017_16448_130_1" href="https://moodle.uam.es/course/view.php?id=46242"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ESTADÍSTICA I (Grupo 130)</span></a></li><li><a title="2017_191000_915_1" href="https://moodle.uam.es/course/view.php?id=46977"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>Tutoría Francisco Saiz Lopez</span></a></li><li><a title="2017_16442_1301_1" href="https://moodle.uam.es/course/view.php?id=46246"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ESTRUCTURAS ALGEBRAICAS (Grupo 1301)</span></a></li><li><a title="2017_16445_726" href="https://moodle.uam.es/course/view.php?id=42777"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>GEOMETRÍA DE CURVAS Y SUPERFICIES (Grupo 726)</span></a></li><li><a title="2017_16441_726" href="https://moodle.uam.es/course/view.php?id=42754"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ANÁLISIS MATEMÁTICO (Grupo 726)</span></a></li><li><a title="2017_16444_726" href="https://moodle.uam.es/course/view.php?id=42775"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ECUACIONES DIFERENCIALES (Grupo 726)</span></a></li><li><a title="2017_17834_130_2" href="https://moodle.uam.es/course/view.php?id=46944"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ARQUITECTURA DE ORDENADORES(G130,G131 y G136)</span></a></li><li><a title="2017_16442_726" href="https://moodle.uam.es/course/view.php?id=42756"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ESTRUCTURAS ALGEBRAICAS (Grupo 726)</span></a></li><li><a title="2017_17835_1302_1" href="https://moodle.uam.es/course/view.php?id=46250"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>REDES DE COMUNICACIONES I (Grupo 1302)</span></a></li><li><a title="2017_16441_1301_1" href="https://moodle.uam.es/course/view.php?id=46245"><span><span aria-hidden="true" class="fa fa-graduation-cap"></span>ANÁLISIS MATEMÁTICO (Grupo 1301)</span></a></li></ul></div></li></ul></div><div id="custom_menu" class="custom_menu"><ul class="nav"></ul></div><div id="custom_menu_activitystream" class="custom_menu"><ul class="nav"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Este curso"><span aria-hidden="true" class="fa fa-book"></span>Este curso<span aria-hidden="true" class="fa fa-caret-right"></span></a><div class="dropdown-menu"><ul><li><a title="Personas" href="https://moodle.uam.es/user/index.php?id=46903"><span aria-hidden="true" class="fa fa-users"></span>Personas</a></li><li><a title="Calificaciones" href="https://moodle.uam.es/grade/report/index.php?id=46903"><span aria-hidden="true" class="icon fa fa-list-alt"></span>Calificaciones</a></li><li><a href="https://moodle.uam.es/mod/choice/index.php?id=46903"><img src="enunciado_files/icon_005.svg" class="icon" alt="">Consultas</a></li><li><a href="https://moodle.uam.es/mod/quiz/index.php?id=46903"><img src="enunciado_files/icon_003.svg" class="icon" alt="">Cuestionarios</a></li><li><a href="https://moodle.uam.es/mod/forum/index.php?id=46903"><img src="enunciado_files/icon_002.svg" class="icon" alt="">Foros</a></li><li><a href="https://moodle.uam.es/course/resources.php?id=46903"><img class="icon" alt="" src="enunciado_files/icon_004.svg">Recursos</a></li><li><a href="https://moodle.uam.es/mod/assign/index.php?id=46903"><img src="enunciado_files/icon_006.svg" class="icon" alt="">Tareas</a></li></ul></div></li></ul></div>                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="page-header" class="clearfix nologo" style="margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <!-- HEADER: LOGO AREA -->
+                <div class="pull-left">
+<a class="textlogo" href="https://moodle.uam.es/"><div class="titlearea"><h1 id="title">MOODLE DE GRADO</h1></div></a>                </div>
+                            </div>
+        </div>
+    </div>
+</header>
+
+<div id="page" class="container-fluid">
+    <div id="page-top-header" class="clearfix"><div id="page-navbar" class="clearfix row-fluid"><div class="breadcrumb-nav span9"><span class="accesshide" id="navbar-label">Ruta a la página</span><nav aria-labelledby="navbar-label"><ul class="breadcrumb style1"><li class="first"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://moodle.uam.es/"><span itemprop="title">Página Principal</span></a></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" href="https://moodle.uam.es/course/index.php?categoryid=5" style="width: 75px;"><span itemprop="title" style="display: inline-block; width: 28px;">Grado</span></a></span></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" href="https://moodle.uam.es/course/index.php?categoryid=3602" style="width: 229px;"><span itemprop="title" style="display: inline-block; width: 28px;">Escuela Politécnica Superior</span></a></span></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" href="https://moodle.uam.es/course/index.php?categoryid=4435" style="width: 406px;"><span itemprop="title" style="display: inline-block; width: 28px;">Graduado/a en Ingeniería Informática y Matemáticas</span></a></span></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" href="https://moodle.uam.es/course/index.php?categoryid=4442" style="width: 120px;"><span itemprop="title" style="display: inline-block; width: 28px;">Tercer Curso</span></a></span></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" href="https://moodle.uam.es/course/index.php?categoryid=4443" style="width: 150px;"><span itemprop="title" style="display: inline-block; width: 28px;">Primer Semestre</span></a></span></span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline-block; width: 28px;"><span style="display: inline-block; width: 28px;"><a itemprop="url" title="REDES DE COMUNICACIONES I" href="https://moodle.uam.es/course/view.php?id=46903" style="width: 176px;"><span itemprop="title" style="display: inline-block; width: 28px;">2017_17835_130_2</span></a></span></span></li><li><span tabindex="0" style="display: inline-block; width: 28px;">Práctica 4, sesiones 9/10/11: Tráfico sintético</span></li><li class="last"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" title="Página" href="https://moodle.uam.es/mod/page/view.php?id=720139"><span itemprop="title">Práctica 4, sesiones 9/10/11: Tráfico sintético</span></a></span></li></ul></nav></div><nav class="breadcrumb-button span3"></nav></div></div>    <!-- Start Main Regions -->
+    <div id="page-content" class="row-fluid">
+        <div id="main-and-pre" class="span12">
+            <div class="row-fluid">
+                <div id="content" class="span9 pull-right"><section id="region-main"><div class="coursetitle"><div class="page-context-header"><div class="page-header-headings"><h1>REDES DE COMUNICACIONES I</h1></div></div></div><div class="bor"></div><span class="notifications" id="user-notifications"></span><div role="main"><span id="maincontent"></span><div class="row-fluid"><div class="span8"><h2>Práctica 4, sesiones 9/10/11: Tráfico sintético</h2></div><div class="span4 heading-rts"><a href="https://moodle.uam.es/course/view.php?id=46903&amp;sesskey=faV8XkhvnR#section-7" class="btn btn-default" title="Volver a: Práctica 4, ses...">Volver a: Práctica 4, ses...<span aria-hidden="true" class="fa-fw fa fa-sign-in"></span></a></div></div><div class="box generalbox center clearfix"><div class="no-overflow"><h2>Objetivos de la práctica</h2>
+<ul><li>Emular el funcionamiento genérico de la pila de protocolos de red para transmisión.</li><li>Comprender la forma en que se encamina un paquete en una LAN y entre LANs distintas.</li><li>Estudiar protocolos desde la capa de enlace a la de transporte.</li><li>Conocer mecanismos de inyección de tráfico a la red, diferentes a la API de sockets que se trabajará en el siguiente semestre.<br></li></ul>
+<h2>Introducción</h2>
+<p align="JUSTIFY">
+En esta cuarta práctica emularemos el trabajo que la pila de red hace durante el proceso de transmisión de datos.</p><p align="JUSTIFY">Para ello, consideraremos dos escenarios diferentes:</p><p align="JUSTIFY"></p><ul><li>En primer lugar, proponemos un escenario en el que una aplicación desea mandar datos a otro equipo. Este equipo abriría un <em>socket</em>
+ de comunicaciones, definido típicamente y dependiendo del tipo (por 
+ejemplo, TCP o UDP) por los puertos y direcciones IP (bien solo los 
+destino u origen/destino). De este modo, una aplicación enviaría datos 
+copiándolos en un <em>socket</em>, que es el elemento que permite que 
+los datos desciendan por la pila de protocolos de envío elegida y sean 
+transmitidos. Una vez recibidos en el receptor, se recorre la pila en 
+sentido contrario dejándolos en el nivel adecuado según la configuración
+ del <em>socket</em>. En esta práctica enviaremos datos del nivel de aplicación mediante un paquete Ethernet|IP|UDP a equipos tanto de la <strong>misma red local</strong> como <strong>externos a las redes locales</strong>.<br></li><li>En segundo lugar, implementaremos de forma simple el envío de paquetes de <em>echo</em> (usados por la aplicación <em>ping</em>).
+ Estos paquetes siguen el protocolo ICMP, que se construye sobre IP y 
+sirve como protocolo de control, notificación y señalización para el 
+propio IP. Algunos ejemplos de uso de ICMP son el <em>ping</em> (que básicamente consiste en una solicitud de respuesta), alertas de TTL expirados (usado en <i>traceroute</i>) o de direcciones/puertos no disponibles.<br></li></ul><p>Mediante
+ este ejercicio de generación de tráfico sintético se podrá entender con
+ detalle el funcionamiento de la pila de red, aunque en general la 
+inyección de tráfico por parte del usuario resulta útil para otras 
+cuestiones, como por ejemplo para testear una red en condiciones 
+controlables.<br></p><p></p>
+
+<p align="JUSTIFY">
+Para realizar la práctica se necesitará:
+</p>
+<ul>
+<li align="JUSTIFY">Conocer la cabeceras IP, UDP e ICMP.</li>
+<li align="JUSTIFY">Comprender la interacción entre un protocolo de 
+nivel de red y uno de nivel de enlace. Esto es, ya se debe conocer como 
+se direcciona el tráfico según dos equipos puedan comunicarse 
+físicamente <b>(son adyacentes)</b> o si por el contrario se requiere de
+ la colaboración de un router (nivel 3). En concreto en los laboratorios
+ trabajaremos con tarjetas de red que presentan interfaces Ethernet.</li>
+<li align="JUSTIFY">Conocer la fragmentación IP de datagramas, tal y 
+como se ha visto en teoría, según las limitaciones de envío del nivel 
+inferior. En nuestro caso, el tamaño máximo vendrá dado por la MTU 
+Ethernet.</li>
+</ul>
+<p align="JUSTIFY">
+Finalmente, en esta práctica utilizaremos de nuevo la biblioteca libpcap
+ para escribir en un archivo el tráfico formado por el usuario que será 
+luego inyectado en la red. Así, el empleo de esta funcionalidad de 
+libpcap permitirá comprobar la formación correcta del tráfico sintético.</p>
+<h2>Conocimiento necesarios</h2>
+<h3>Cabecera IP</h3>
+<p align="JUSTIFY">
+Los campos de IP se han visto en teoría así como el proceso de fragmentación IP:
+</p>
+<div><img src="enunciado_files/IP.jpg" alt="IP" width="628" height="324"></div>
+<div>
+<p align="JUSTIFY">En cuanto al <em>checksum</em> (o Suma de Control de 
+Cabecera o suma de comprobación), para su cálculo se debe primero 
+construir la cabecera IP completa asumiendo que el propio campo <em>checksum</em>
+ está a cero. Despues, se aplica la función de checksum(·), y se 
+sustituye el campo correspondiente con el valor calculado. Este valor se
+ obtiene como el complemento a uno de la suma de los bytes implicados de
+ dos en dos (recuerde que en el caso IP la suma de comprobación es solo 
+sobre la cabecera). Se facilita una función que ya implementa este 
+mecanismo: calcularChecksum(·) en practica4.c.</p>
+<p align="JUSTIFY">Wireshark por defecto no suele comprobar el <em>checksum</em>,
+ por lo que debe habilitar esta comprobación para comprobar que se forma
+ el paquete correctamente. En concreto, en la versión de Wireshark 
+instalada en la máquina virtual del laboratorio se puede cambiar en Edit
+ --&gt; Preferences --&gt; Protocols --&gt; IPv4, y allí sería la cuarta
+ opción.
+</p>
+<p align="JUSTIFY">
+Respecto a la fragmentación IP, puede referirse al libro o ejercicios 
+hechos en teoría (o para comprobaciones rápidas al propio Wireshark).
+</p>
+</div>
+<div>
+<h3>Cabecera UDP</h3>
+La cabecera UDP es de la siguiente forma:<br><img title="UDP" alt="UDP" src="enunciado_files/UDP.jpg" width="375" vspace="0" border="0" hspace="0" height="238"><br><br>
+<p align="JUSTIFY">
+donde en primer lugar tenemos los puertos origen y destino. En una 
+comunicación típica, el puerto destino es definido por la aplicación 
+(por ejemplo en el caso P2P el servidor de <i>peers </i>o el puerto/s 
+que cada cliente P2P abre para ofrecer contenidos) o es bien conocido 
+(servidor web=80, DNS=53). En cambio el puerto origen debe ser 
+cualquiera válido que no esté ya en uso (típicamente aleatorio).
+</p>
+<p align="JUSTIFY">
+El campo Longitud hace referencia a todo el segmento (mensaje + cabecera UDP). El <em>checksum</em>
+ de UDP no solo se calcula sobre la cabecera, como en el caso de IP, ni 
+como intuitivamente debería hacerse (mensaje+cabecera UDP, es decir, 
+sobre todo el segmento), sino que se extiende hacia el protocolo 
+inferior por cuestiones poco justificables en términos académicos. Por 
+simplicidad, no vamos a implementar el <em>ckecksum</em> UDP, así que debe ser dejado a 0.
+</p>
+<h3>ICMP</h3>
+<p align="JUSTIFY">
+El protocolo ICMP (Internet Control Message Protocol, RFC 792) se puede 
+considerar que forma parte de la capa IP. Sus mensajes son transmitidos 
+sobre datagramas IP, como si de una capa superior se tratase pero su 
+uso, como su nombre indica, corresponde a mensajes especiales de la 
+propia capa de red (por tanto las terminología usada como referencia no 
+encaja perfectamente para este protocolo).</p>
+<p align="JUSTIFY">Fundamentalmente es usado para avisar de condiciones 
+de error, del tipo “no se encuentra ruta al host” o “se necesita 
+fragmentar el datagrama habiéndose solicitado la no-fragmentación”. 
+También sirve para comprobar la actividad de otro host (mensajes de 
+petición y respuesta de echo), solicitar o anunciar routers, solicitar 
+máscaras de red (RFC 950), etc.
+</p>
+<p align="JUSTIFY">
+De entre todos los tipos de mensaje ICMP existentes, nos limitaremos en esta práctica a la generación de mensajes de tipo <i>echo request</i>, que es lo mismo que Tipo = 8, y Codigo = 0, que se usa para hacer <i>pings</i> entre equipos.
+</p>
+<p align="JUSTIFY">
+El formato de un mensaje de ICMP <i>echo request/reply</i> es el siguiente:</p>
+<br><img title="ICMP" alt="ICMP" src="enunciado_files/ICMP.jpg" width="593" vspace="0" border="0" hspace="0" height="179"><br><br>
+<p align="JUSTIFY">El campo identificador se usa como identificador de proceso: por ejemplo, si hay varias instancias del programa <i>ping</i> corriendo en la misma máquina. En términos de esta práctica no aplicará más allá de asignar un identificador válido.
+</p>
+<p align="JUSTIFY">
+El número de secuencia permite asociar respuestas con solicitudes. Suele
+ comenzar por cero y se incrementa cada vez que el proceso hace una 
+nueva solicitud de echo. En nuestro caso, tampoco aplica de manera 
+significativa más allá de que sea valido y único en caso de enviarse más
+ de una petición.</p>
+<p align="JUSTIFY">
+Los datos opcionales son devueltos por el servidor de <i>echo</i> ICMP tal como los mandó el cliente, y este campo puede no existir. Por como se calcula el <i>checksum</i> ICMP y para no añadir <i>paddings, </i>los datos deben ser de longitud par.</p>
+<p align="JUSTIFY">
+El cálculo de <i>checksum</i> ICMP involucra su cabecera y datos, no 
+sólo los ocho bytes de cabecera. Recuerde que IP solo tenía en cuenta la
+ cabera: por lo demás, son equivalentes.
+</p>
+<h3>Libpcap como almacenamiento e inyector de tráfico sintético</h3>
+<p align="JUSTIFY">Revise el documento&nbsp;<em></em><a href="https://moodle.uam.es/mod/page/view.php?id=720085">Práctica 1, sesión 2/3: Libpcap y Wireshark</a>,
+ donde se explica cómo almacenar en pcap tráfico creado y también como 
+es la cabecera de información que Wireshark añade a cada paquete (y por 
+tanto también cómo crearla).</p>
+<p align="JUSTIFY">
+Dese cuenta de que para asociar un descriptor para capturar de una 
+interfaz mediante libpcap no es necesario definir el nivel de enlace, 
+pues este es propio a la tarjeta y también a la interfaz. En cambio, 
+cuando se genera tráfico sintético se puede asumir el nivel de enlace 
+que se desee (Ethernet, WiFi o cualquier otro independientemente del 
+hardware). Como nuestro objeto es crear trazas que sean inyectables por 
+la red (física) disponible, primero preguntamos a la interfaz sobre el 
+nivel de enlace (que implementa) y después creamos el descriptor para 
+almacenar tráfico (para que tanto la interfaz física y tráfico sintético
+ compartan nivel de enlace). Estos detalles se encuentran ya 
+implementados en el código de ejemplo.</p>
+<p align="JUSTIFY">
+Adicionalmente, puede encontrar útil la función 
+gettimeofday(&amp;ts,NULL) que rellena la estructura timeval ts con la 
+hora/fecha actual.
+</p>
+<h4>Inyectar tráfico</h4><p>Para inyectar tráfico sintético en la red, se utilizará la siguiente función:</p><p align="JUSTIFY"><span color="#000000"><span face="Arial, sans-serif"><span size="2">int pcap_sendpacket(pcap_t *p, const u_char *buf, int size);</span></span></span></p><p></p>
+<p align="JUSTIFY">Donde:</p>
+<ul>
+<li align="JUSTIFY"><strong>p</strong> es el puntero a descriptor de 
+interface donde queremos “inyectar” un paquete, este descriptor debe ser
+ abierto anteriormente mediante pcap_open_live(·) y cerrado finalmente 
+mediante pcap_close(·).</li>
+<li align="JUSTIFY"><strong>buf</strong> es un puntero al primer byte del paquete a transmitir.</li>
+<li align="JUSTIFY"><strong>size</strong> representa el número de bytes a transmitir.</li>
+<li align="JUSTIFY">El retorno será 0 si en caso correcto o -1 en caso de error.</li>
+</ul><p><b>El empleo de cualquier otra función para enviar los paquetes (<i>e.g.</i>, pcap_inject) supondrá &nbsp;que la práctica reciba una calificación de 0 puntos</b>.</p>
+<h2>Ejercicio</h2>
+<h3>Requisitos</h3>
+</div>
+<div>
+<p align="JUSTIFY">
+La entrega de esta práctica debe ser capaz de generar y enviar un 
+paquete que siga la pila Ethernet|IP|UDP|Aplicación dada una dirección 
+IP y un puerto destino. Como aplicación, vamos a considerar el envío de 
+una cadena de caracteres leída desde archivo o desde la entrada 
+estándar. Este envío se conformará en un solo mensaje. Después de este 
+primer envío, se debe generar (y obviamente enviar) un datagrama de tipo
+ e<i>cho/ping</i> que siga la pila Ethernet|IP|ICMP. Se comprobará con Wireshark (en distintos puntos) que efectivamente se manda el paquete <i>echo Request</i> y se recibe la respuesta del equipo destino.</p>
+<p align="JUSTIFY">La aplicación debe permitir comunicarse tanto con 
+equipos de la propia subred como fuera de ella (esto es, el paquete debe
+ llegar correctamente a hosts destino), realizando las peticiones ARP 
+adecuadas dependiendo de la situación (se recuerda que esto es 
+considerado como parte de los conocimientos previos necesarios para la 
+correcta realización de la práctica). La comprobación se hará mediante 
+Wireshark: por ejemplo puede usar un equipo emisor en su VM y otro (con 
+una IP pública y SO nativo que puede ser incluso Windows) corriendo 
+Wireshark como receptor. Mediante los comandos ifconfig / route -n e 
+ipconfig /all se puede conocer la configuración de una interfaz en un 
+sistema Linux y Windows respectivamente.</p>
+<p align="JUSTIFY">Si se utiliza un sistema Windows en el que no se 
+encuentra instalado Wireshark, es posible utilizar la versión portable 
+disponible en la página&nbsp;<a href="https://www.wireshark.org/download.html" target="_blank">https://www.wireshark.org/download.html</a>.
+ La descarga y puesta en marcha de la misma es muy ligera, y puede ser 
+de utilidad según la estructura de la arquitectura de pruebas que se 
+plantee. En nuestro caso particular, por las características de VMware 
+según el sistema operativo huésped, recomendamos una arquitectura con 
+VMware sobre Ubuntu para el emisor, y el empleo de Wireshark sobre 
+Ubuntu para evaluar la recepción correcta de los paquetes sintéticos en 
+el receptor. En este sentido, se recuerda a los alumnos que pueden 
+lanzar Wireshark con permisos de superusuario (sudo wireshark) sobre la 
+propia máquina física de los laboratorios.</p>
+<p align="JUSTIFY"><b>Finalmente, es requisito indispensable realizar 
+una lectura completa del enunciado antes de comenzar la implementación 
+de la aplicación.</b></p>
+</div>
+<div>
+<h3>Código facilitado</h3>
+</div>
+<div>
+<p align="JUSTIFY">Se facilitan cinco archivos (practica4.c/practica4.h,
+ interface.c/interface.h y un makefile, todo en el comprimido 
+practica4.zip) para empezar la implementación. Estos archivos incluyen 
+la función main(·), que solo requerirá leves modificaciones, así como 
+los prototipos de los módulos de transmisión a implementar. También se 
+facilitan ejemplos que pueden facilitar la realización de estos módulos,
+ y algunas funciones auxiliares relativas a la interfaz y <em>sockets</em>. <b><em>Se ruega</em>
+ a los alumnos que se lean los comentarios y cabeceras de los archivos 
+facilitados: pueden parece inútiles al principio, pues no se tiene una 
+idea general de la implementación, pero no lo son.</b></p>
+<p align="JUSTIFY">Sobre la ejecución de la aplicación, los argumentos que se reciben tienen el siguiente formato:</p>
+<p align="JUSTIFY"><strong>&lt;nombre de la aplicación&gt; -if &lt;Interfaz&gt; -ip &lt;IP&gt; -pd&nbsp;&lt;Puerto&gt; [-f &lt;archivo de datos&gt;]</strong></p>
+<p align="JUSTIFY">donde</p>
+<ul>
+<li align="JUSTIFY">-if &lt;Interfaz&gt; indica la interfaz de red por la que se van a transmitir datos.</li>
+<li align="JUSTIFY">-ip &lt;IP&gt; indica la dirección IP destino.</li>
+<li align="JUSTIFY">-pd &lt;Puerto&gt; indica el puerto destino.</li>
+<li align="JUSTIFY">-f &lt;archivo de datos&gt; es un argumento opcional
+ que indica la fuente de los datos que se van a enviar en el paquete 
+UDP. Si no se incluye en la invocación, se enviará la cadena “Payload ”.
+ Este argumento puede ser la ruta de un archivo existente, del que se 
+deben leer los datos a transmitir, o “stdin”, de forma que se 
+introduzcan los datos a través de la entrada estándar 
+<b>(útil para forzar fragmentación)</b>.
+</li></ul>&nbsp; &nbsp; &nbsp; En caso del uso de la entrada "stdin" se 
+enviará la trama correspondiente una vez se reciba el correspondiente 
+fin de linea ("\n") del terminal.<br><ul>
+</ul>
+<p align="JUSTIFY">Adicionalmente, en el código proporcionado se realiza
+ la apertura de un descriptor para escribir los paquetes generados en un
+ archivo pcap con fines de depuración. Es trabajo del alumno completar 
+la escritura de los paquetes generados en dicho archivo, siguiendo las 
+indicaciones proporcionadas en el documento&nbsp;<a href="https://moodle-archivado-16.uam.es/mod/page/view.php?id=292378">Práctica 1, sesión 2/3: Libpcap y Wireshark</a>.</p>
+<p align="JUSTIFY">El archivo interface.c incluye las funciones 
+necesarias para extraer los valores de configuración de la interfaz de 
+red necesarios para la transmisión, y otras funciones auxiliares. Para 
+la implementación de estas funciones se requiere conocimientos de 
+configuración de <em>sockets</em> y por ello son facilitadas, aunque son de uso optativo: si el alumno quiere usar funciones propias, <b>siempre que se extraigan los valores reales de la propia interfaz y no se consigan de forma artificial</b>
+ (mediante variables externas o globales por ejemplo) se considerará una
+ solución adecuada. En concreto, las funciones incluidas en este archivo
+ permiten obtener de la interfaz de red: la dirección física, la máscara
+ de red, la dirección IP, la puerta de enlace predeterminada (<em>gateway</em>),
+ y la MTU. En este archivo también se incluyen funciones propias del 
+protocolo ARP (como “traducir” una IP en una dirección MAC) y obtener un
+ puerto origen no ocupado por otros servicios en el host. Todas estas 
+funciones están explicadas en el propio código, y son necesarias para la
+ transmisión de paquetes como los aquí solicitados (como habrá visto en 
+teoría).</p>
+</div>
+<div>
+<h3>Implementación a seguir</h3>
+</div>
+<div>
+<p align="JUSTIFY">Las funciones básicas a implementar/completar son los
+ módulos moduloUDP(·), moduloICMP(·), moduloIP(·), moduloETH(·). Los 
+prototipos incluyen un último puntero genérico que debe ser <i>casteado</i>
+ a tipo Parametros en cada modulo que necesite la información que da 
+esta estructura. La descripción de la información que contiene es la 
+siguiente: <b>Parametros: ETH_destino, IP_destino, puerto_destino, tipo</b> y <b>código</b>. No todos los módulos requieren todos estos campos, de modo que <b>solo debe usar y rellenar aquellos que la pila de protocolos requiera en cada momento</b>. (<strong>Aviso</strong>. Preste atención después de añadir el campo <b>ETH_destino</b> a cómo pasa la estructura al módulo de nivel inferior: <em>ipdatos</em> y <em>parametros</em> son variables distintas).<br></p>
+<p align="JUSTIFY">Para completar la implementación de estas funciones, 
+es necesario entender las funciones facilitadas: main(·), la función 
+enviar(·) y inicializarPilaEnviar(·)/registrarProtocolo(·). También se 
+debe saber utilizar la función calcularChecksum(·), facilitada para 
+calcular el <em>checksum</em> de IP e ICMP. Por otro lado, la función 
+mostrarPaquete(·) puede resultar útil de cara a la depuración del código
+ implementado. Asimismo se aconseja implementar una función opcional 
+denominada aplicarMascara(·).</p>
+<p align="JUSTIFY"><b>Es obligatorio seguir los nombres y prototipos 
+facilitados, así como la política de registrar protocolos en tablas y el
+ uso que sigue la implementación estándar de la pila de protocolos de 
+sistemas Linux.</b> Las funciones inicializarPilaEnviar(·) y 
+registrarProtocolo(·) facilitadas realizan esta 
+funcionalidad.&nbsp;Básicamente, a cada protocolo se le asigna un número
+ para poder ser identificado. Este número es único, estando definidos en
+ la RFC 1700. De este modo se registran protocolos en una tabla de 
+protocolos, y cuando se desea transmitir, se sigue la pila de protocolos
+ adecuada llamando a los módulos de transmisión en una secuencia 
+determinada. Como ya se ha comentado, en esta práctica vamos a seguir 
+dos pilas típicas: Ethernet|IP|UDP&nbsp;y Ethernet|IP|ICMP. Como vimos 
+en la práctica anterior, puede haber más capas que las típicas sobre la 
+capa de nivel 2 de la interfaz (la cual es única pues está definida por 
+la implementación física de la interfaz; esto es, una tarjeta de red 
+“normal” no puede convertirse en wifi cambiando la pila de protocolos) y
+ debajo de la capa de transporte que une la pila de red con los 
+procesos. Observe en el main(·) facilitado cómo se usa la variable 
+pila_protocolos para definir esta pila; y cómo UDP requiere conocer su 
+protocolo de nivel inferior para seguir la ruta adecuada, Ethernet 
+requiere el protocolo de nivel superior (para que en recepción se sepa 
+cómo <i>parsear</i> el paquete), y el resto (IP y cualquier otro intermedio) típicamente ambos.</p>
+<p align="JUSTIFY">
+En las sesiones de laboratorio se ampliará la explicación de todas estas funciones.</p>
+<h2>Entrega</h2>
+<p align="JUSTIFY">Denomine a los archivos de entrega <b>practica4.c/practica4.h</b>.
+Añada un archivo <b>leeme.txt</b> que incluya los nombres de los 
+autores, comentarios que se quieran transmitir al profesor y, en caso de
+ entregar algún archivo adicional, la explicación del mismo.
+<b>Incluya también los archivos facilitados (interface.c/interface.h/make) en la entrega aunque no los haya modificado</b>. <b>No olvide incluir también el makefile</b>.
+</p>
+<p align="JUSTIFY">
+Comprima en un zip todo lo que vaya a entregar y llámelo 
+practica4_YYYY_PXX.zip, donde YYYY es el grupo al que pertenece (1301, 
+1302, etc), y XX (y solo XX) es el número de pareja (con dos dígitos), 
+por ejemplo usando el comando: <b>$ zip practica4_1301_P01.zip *</b></p>
+<p align="JUSTIFY">Solo es necesario que suba la entrega un miembro de la pareja. <b>En caso de dudas pueden subir ambos miembros la práctica.</b></p>
+</div>
+<div>
+<h3>Criterios de evaluación</h3>
+<p align="JUSTIFY"><strong>Ejercicio:&nbsp;</strong>Entrega el día 14 de Diciembre.</p>
+<ul>
+<li align="JUSTIFY">Formación correcta de un paquete UDP dentro de la red local: 15%.
+<ul>
+<li align="JUSTIFY">La validación de campos se realizará empleando Wireshark.</li>
+</ul>
+</li>
+<li align="JUSTIFY">Envío y Recepción de un paquete UDP en un equipo no adyacente (externo a la LAN): 25%.
+<ul>
+<li align="JUSTIFY">Se ejecutará Wireshark en un equipo receptor con IP pública y se comprobará la recepción y corrección del paquete.</li>
+<li align="JUSTIFY">Se comprobará que la formación de la pregunta (una 
+por paquete) tipo ARP request sea la correcta. Es por tanto 
+imprescindible que para ello se tenga en cuenta si la IP destino está 
+&nbsp;o no dentro de la propia subred.</li>
+</ul>
+</li>
+<li align="JUSTIFY">Envío y Recepción de paquetes UDP que hayan sufrido fragmentación: 20%.
+<ul>
+<li align="JUSTIFY">Se comprobará con Wireshark que el destino recibe 
+datos a nivel de aplicación significativamente mayores a la MTU Ethernet
+ pero menores al MSS teórico de UDP.</li>
+<li align="JUSTIFY"><strong>En el caso de no implementar esta 
+funcionalidad y NO comprobar si los datos superan la MTU del enlace 
+antes de intentar transmitirlos será penalizado con un 5% adicional a la
+ perdida de puntuación de correspondiente a este apartado.</strong></li>
+</ul>
+</li>
+<li align="JUSTIFY">ICMP y echo/ping dentro de la red local: 15%</li>
+<ul>
+<li align="JUSTIFY">Se comprobará con Wireshark que el destino recibe la
+ petición de ping y que el emisor recibe la respuesta, estando ambos 
+dentro de una misma subred.</li>
+</ul>
+<li align="JUSTIFY">ICMP y echo/ping en un equipo no adyacente: 20%
+<ul>
+<li align="JUSTIFY">Se comprobará con Wireshark en dos equipos que el destino recibe la petición de ping y que el emisor recibe la respuesta.</li>
+<li align="JUSTIFY">Se comprobará que la formación de la pregunta (una 
+por paquete) tipo ARP request sea la correcta. Es por tanto 
+imprescindible que para ello se tenga en cuenta si la IP destino está o 
+no dentro de la propia subred.</li>
+</ul>
+</li>
+<li align="JUSTIFY">Lectura de datos para paquetes UDP desde archivo: 5%</li>
+</ul>
+<p align="JUSTIFY"><span style="text-align: left;">&nbsp;</span><br></p><p align="JUSTIFY"><b>Cuestionario</b>: El día 24 de noviembre se realizará un breve cuestionario individual en moodle. Revise las preguntas facilitadas.<br></p>
+<p align="JUSTIFY"><strong>Control individual:</strong> Control sobre la práctica el día 15 de diciembre. El control comienza a "y 5".</p>
+</div></div></div><div class="modified">Última modificación: lunes, 13 de noviembre de 2017, 16:21</div></div><div class="row-fluid"><div class="span12 text-center footer-rts"><a href="https://moodle.uam.es/course/view.php?id=46903&amp;sesskey=faV8XkhvnR#section-7" class="btn btn-default" title="Volver a: Práctica 4, ses...">Volver a: Práctica 4, ses...<span aria-hidden="true" class="fa-fw fa fa-sign-in"></span></a></div></div></section></div><aside id="block-region-side-pre" class="span3 desktop-first-column block-region" data-blockregion="side-pre" data-droptarget="1"><a class="skip skip-block" id="fsb-1" href="#sb-1">Salta Encuestas Web Sigma</a><div id="inst263717" class="block_html  block" role="complementary" data-block="html" data-instanceid="263717" aria-labelledby="instance-263717-header" data-dockable="1"><div class="header"><div class="title" id="yui_3_17_2_1_1512216448170_50"><div class="block_action"><img class="block-hider-hide" alt="Oculta bloque Encuestas Web Sigma" src="enunciado_files/switch_minus.svg" tabindex="0" title="Oculta bloque Encuestas Web Sigma"><img class="block-hider-show" alt="Muestra bloque Encuestas Web Sigma" src="enunciado_files/switch_plus.svg" tabindex="0" title="Muestra bloque Encuestas Web Sigma"><input class="moveto customcommand requiresjs" alt="Minimizar en la barra lateral" title="Acoplar bloque Encuestas Web Sigma" src="enunciado_files/block_to_dock.svg" type="image"></div><span aria-hidden="true" class="fa fa-list-alt"></span><h2 id="instance-263717-header">Encuestas Web Sigma</h2></div></div><div class="content"><div class="no-overflow"><p style="text-align: center;"><img src="enunciado_files/Encuestas.jpg" alt="" role="presentation" class="img-responsive atto_image_button_middle" width="281" height="225"><br></p><p style="text-align: center;"><i><span class="" style="background-color: rgb(255, 255, 0);">¡Entra en cualquiera de tus cursos para realizar las encuestas!</span></i></p></div></div></div><span class="skip-block-to" id="sb-1"></span><a class="skip skip-block" id="fsb-2" href="#sb-2">Salta Navegación</a><div id="inst4" class="block_navigation  block" role="navigation" data-block="navigation" data-instanceid="4" aria-labelledby="instance-4-header" data-dockable="1"><div class="header"><div class="title" id="yui_3_17_2_1_1512216448170_66"><div class="block_action"><img class="block-hider-hide" alt="Oculta bloque Navegación" src="enunciado_files/switch_minus.svg" tabindex="0" title="Oculta bloque Navegación"><img class="block-hider-show" alt="Muestra bloque Navegación" src="enunciado_files/switch_plus.svg" tabindex="0" title="Muestra bloque Navegación"><input class="moveto customcommand requiresjs" alt="Minimizar en la barra lateral" title="Acoplar bloque Navegación" src="enunciado_files/block_to_dock.svg" type="image"></div><span aria-hidden="true" class="fa fa-sitemap"></span><h2 id="instance-4-header">Navegación</h2></div></div><div class="content"><ul class="block_tree list" role="tree" data-ajax-loader="block_navigation/nav_loader"><li class="type_unknown depth_1 contains_branch" aria-labelledby="label_1_1" tabindex="-1"><p class="tree_item branch canexpand navigation_node" role="treeitem" aria-expanded="true" aria-owns="random5a2297ee3f4942_group" data-collapsible="false" tabindex="0" aria-selected="true"><a tabindex="-1" id="label_1_1" href="https://moodle.uam.es/">Página Principal</a></p><ul id="random5a2297ee3f4942_group" role="group" tabindex="-1"><li class="type_setting depth_2 item_with_icon" aria-labelledby="label_2_2" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_2_2" href="https://moodle.uam.es/my/"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Área personal</span></a></p></li><li class="type_course depth_2 contains_branch" aria-labelledby="label_2_3" tabindex="-1"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a2297ee3f4944_group" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_2_3" title="MOODLE DE GRADO">Páginas del sitio</span></p><ul id="random5a2297ee3f4944_group" role="group" aria-hidden="true" tabindex="-1"><li class="type_unknown depth_3 item_with_icon" aria-labelledby="label_3_5" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_3_5" href="https://moodle.uam.es/blog/index.php"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Blogs del sitio</span></a></p></li><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_6" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_3_6" href="https://moodle.uam.es/badges/view.php?type=1"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Insignias del sitio</span></a></p></li><li class="type_setting depth_3 item_with_icon" aria-labelledby="label_3_7" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_3_7" href="https://moodle.uam.es/tag/search.php"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Marcas</span></a></p></li><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_8" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_3_8" href="https://moodle.uam.es/calendar/view.php?view=month"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Calendario</span></a></p></li></ul></li><li class="type_system depth_2 contains_branch" aria-labelledby="label_2_22" tabindex="-1"><p class="tree_item branch" role="treeitem" aria-expanded="true" aria-owns="random5a2297ee3f4949_group" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_2_22">Curso actual</span></p><ul id="random5a2297ee3f4949_group" role="group" tabindex="-1"><li class="type_course depth_3 contains_branch" aria-labelledby="label_3_23" tabindex="-1"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="true" aria-owns="random5a2297ee3f49410_group" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_3_23" title="REDES DE COMUNICACIONES I" href="https://moodle.uam.es/course/view.php?id=46903">2017_17835_130_2</a></p><ul id="random5a2297ee3f49410_group" role="group" tabindex="-1"><li class="type_unknown depth_4 contains_branch" aria-labelledby="label_4_24" tabindex="-1"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a2297ee3f49411_group" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_4_24" href="https://moodle.uam.es/user/index.php?id=46903">Participantes</a></p><ul id="random5a2297ee3f49411_group" role="group" aria-hidden="true" tabindex="-1"><li class="type_setting depth_5 item_with_icon" aria-labelledby="label_5_25" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_25" href="https://moodle.uam.es/blog/index.php?groupid=14314"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Blogs de curso</span></a></p></li><li class="type_user depth_5 item_with_icon" aria-labelledby="label_5_26" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_26" href="https://moodle.uam.es/user/view.php?id=129293&amp;course=46903"><i class="fa fa-file icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/navigationitem.svg" tabindex="-1"></i><span class="item-content-wrap" tabindex="-1">Lucia Asencio Martin</span></a></p></li></ul></li><li class="type_unknown depth_4 contains_branch" aria-labelledby="label_4_27" tabindex="-1"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a2297ee3f49414_group" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_27">Insignias</span></p><ul id="random5a2297ee3f49414_group" role="group" aria-hidden="true" tabindex="-1"><li class="type_setting depth_5 item_with_icon" aria-labelledby="label_5_28" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_28" href="https://moodle.uam.es/badges/view.php?type=2&amp;id=46903"><img class="smallicon navicon" alt="Insignias de curso" title="Insignias de curso" src="enunciado_files/badge.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Insignias de curso</span></a></p></li></ul></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_29" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465206" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465206" data-node-key="465206" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_29">General</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_30" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465237" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465237" data-node-key="465237" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_30">Información General del curso 2017-2018</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_31" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465238" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465238" data-node-key="465238" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_31">Prácticas</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_32" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465239" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465239" data-node-key="465239" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_32">Introducción al laboratorio y a Wireshark, sesión ...</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_33" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465240" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465240" data-node-key="465240" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_33">Práctica 1, sesión 2: Libpcap y Wireshark</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_34" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465241" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465241" data-node-key="465241" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_34">Práctica 2, sesiones 3/4/5: Disección y filtrado d...</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_35" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465242" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465242" data-node-key="465242" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_35">Práctica 3, sesiones 6/7/8: Monitorización</span></p></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_36" tabindex="-1"><p class="tree_item branch" role="treeitem" aria-expanded="true" aria-owns="random5a2297ee3f49416_group" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_36">Práctica 4, sesiones 9/10/11: Tráfico sintético</span></p><ul id="random5a2297ee3f49416_group" role="group" tabindex="-1"><li class="type_activity depth_5 item_with_icon current_branch" aria-labelledby="label_5_38" tabindex="-1"><p class="tree_item hasicon active_tree_node" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_38" title="Página" href="https://moodle.uam.es/mod/page/view.php?id=720139"><img class="smallicon navicon" alt="Página" title="Página" src="enunciado_files/icon.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Práctica 4, sesiones 9/10/11: Tráfico sintético</span></a></p></li><li class="type_activity depth_5 item_with_icon" aria-labelledby="label_5_39" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_39" title="Archivo" href="https://moodle.uam.es/mod/resource/view.php?id=720140"><img class="smallicon navicon" alt="Archivo" title="Archivo" src="enunciado_files/archive-24.png" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Practica4.zip</span></a></p></li><li class="type_activity depth_5 item_with_icon" aria-labelledby="label_5_41" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_41" title="Página" href="https://moodle.uam.es/mod/page/view.php?id=720142"><img class="smallicon navicon" alt="Página" title="Página" src="enunciado_files/icon.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Ejemplo de cuestionario - Práctica 4</span></a></p></li><li class="type_activity depth_5 item_with_icon" aria-labelledby="label_5_42" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_42" title="Cuestionario" href="https://moodle.uam.es/mod/quiz/view.php?id=720143"><img class="smallicon navicon" alt="Cuestionario" title="Cuestionario" src="enunciado_files/icon_003.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Cuestionario Practica 4 -- Grupos Mañana</span></a></p></li><li class="type_activity depth_5 item_with_icon" aria-labelledby="label_5_43" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_43" title="Cuestionario" href="https://moodle.uam.es/mod/quiz/view.php?id=720144"><img class="smallicon navicon" alt="Cuestionario" title="Cuestionario" src="enunciado_files/icon_003.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Cuestionario Practica 4 -- Grupos Tarde</span></a></p></li><li class="type_activity depth_5 item_with_icon" aria-labelledby="label_5_45" tabindex="-1"><p class="tree_item hasicon" role="treeitem" tabindex="-1" aria-selected="false"><a tabindex="-1" id="label_5_45" title="Tarea" href="https://moodle.uam.es/mod/assign/view.php?id=720146"><img class="smallicon navicon" alt="Tarea" title="Tarea" src="enunciado_files/icon_006.svg" tabindex="-1"><span class="item-content-wrap" tabindex="-1">Entrega Práctica 4</span></a></p></li></ul></li><li class="type_structure depth_4 contains_branch" aria-labelledby="label_4_54" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_465245" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_465245" data-node-key="465245" data-node-type="30" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_4_54">Teoría</span></p></li></ul></li></ul></li><li class="type_system depth_2 contains_branch" aria-labelledby="label_2_55" tabindex="-1"><p class="tree_item branch" role="treeitem" id="expandable_branch_0_mycourses" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_0_mycourses" data-node-key="mycourses" data-node-type="0" tabindex="-1" aria-selected="false"><span tabindex="-1" id="label_2_55">Mis cursos</span></p></li></ul></li></ul></div></div><span class="skip-block-to" id="sb-2"></span><a class="skip skip-block" id="fsb-4" href="#sb-4">Salta Administración</a><div id="inst5" class="block_settings  block" role="navigation" data-block="settings" data-instanceid="5" aria-labelledby="instance-5-header" data-dockable="1"><div class="header"><div class="title" id="yui_3_17_2_1_1512216448170_82"><div class="block_action"><img class="block-hider-hide" alt="Oculta bloque Administración" src="enunciado_files/switch_minus.svg" tabindex="0" title="Oculta bloque Administración"><img class="block-hider-show" alt="Muestra bloque Administración" src="enunciado_files/switch_plus.svg" tabindex="0" title="Muestra bloque Administración"><input class="moveto customcommand requiresjs" alt="Minimizar en la barra lateral" title="Acoplar bloque Administración" src="enunciado_files/block_to_dock.svg" type="image"></div><span aria-hidden="true" class="fa fa-cogs"></span><h2 id="instance-5-header">Administración</h2></div></div><div class="content"><div id="settingsnav" class="box block_tree_box"><ul class="block_tree list" role="tree" data-ajax-loader="block_navigation/site_admin_loader"><li class="type_course depth_1 contains_branch" tabindex="-1" aria-labelledby="label_1_1"><p class="tree_item root_node tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a2297ee3f49423_group" tabindex="0" aria-selected="true"><span tabindex="-1">Administración del curso</span></p><ul id="random5a2297ee3f49423_group" role="group" aria-hidden="true" tabindex="-1"><li class="type_setting depth_2 item_with_icon" tabindex="-1" aria-labelledby="label_2_1"><p class="tree_item hasicon tree_item leaf" role="treeitem" tabindex="-1" aria-selected="false"><a href="https://moodle.uam.es/grade/report/index.php?id=46903" tabindex="-1"><i class="fa fa-table icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/grades.svg" tabindex="-1"></i>Calificaciones</a></p></li>
+<li class="type_setting depth_2 item_with_icon" tabindex="-1" aria-labelledby="label_2_2"><p class="tree_item hasicon tree_item leaf" role="treeitem" tabindex="-1" aria-selected="false"><a href="https://moodle.uam.es/admin/tool/lp/coursecompetencies.php?courseid=46903" tabindex="-1"><i class="fa fa-wifi fa-flip-vertical icon" aria-hidden="true" tabindex="-1"><img class="smallicon navicon" alt="" src="enunciado_files/competencies.svg" tabindex="-1"></i>Competencias</a></p></li></ul></li></ul></div></div></div><span class="skip-block-to" id="sb-4"></span></aside>            </div>
+                    </div>
+    </div>
+    <!-- End Main Regions -->
+</div>
+
+    <footer role="contentinfo" id="page-footer">
+        <div class="container-fluid">
+                        <div class="row-fluid footerblocks">
+                <div class="footerblock span4">
+                                    </div>
+                <div class="footerblock span4">
+                                    </div>
+                <div class="footerblock span4">
+                                    </div>
+            </div>
+            <div class="footerlinks row-fluid">
+                <hr>
+                <span class="helplink"></span>
+                                            </div>
+            <div class="footerperformance row-fluid">
+                            </div>
+        </div>
+    </footer>
+    <a href="#top" class="back-to-top" aria-label="Volver arriba">
+        <span aria-hidden="true" class="fa fa-angle-up "></span></a>
+<script type="text/javascript">
+//<![CDATA[
+var require = {
+    baseUrl : 'https://moodle.uam.es/lib/requirejs.php/1510852633/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://moodle.uam.es/lib/javascript.php/1510852633/lib/jquery/jquery-1.12.1.min',
+        jqueryui: 'https://moodle.uam.es/lib/javascript.php/1510852633/lib/jquery/ui-1.11.4/jquery-ui.min',
+        jqueryprivate: 'https://moodle.uam.es/lib/javascript.php/1510852633/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script type="text/javascript" src="enunciado_files/require.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+require(['core/first'], function() {
+;
+require(["theme_essential/header"], function(amd) { amd.init(); });;
+require(["theme_essential/footer"], function(amd) { amd.init(); });;
+require(["theme_essential/navbar"], function(amd) { amd.init({"oldnavbar":false}); });;
+require(["theme_essential/jBreadCrumb"], function(amd) { amd.init(); });;
+require(["theme_essential/fitvids"], function(amd) { amd.init(); });;
+require(["block_navigation/navblock"], function(amd) { amd.init("4"); });;
+require(["block_settings/settingsblock"], function(amd) { amd.init("5", null); });;
+require(["core/log"], function(amd) { amd.setConfig({"level":"warn"}); });
+});
+//]]>
+</script>
+<script type="text/javascript" src="enunciado_files/footer.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"\u00daltima modificaci\u00f3n","name":"Nombre","error":"Error","info":"Informaci\u00f3n","yes":"S\u00ed","no":"No","viewallcourses":"Ver todos los cursos","morehelp":"M\u00e1s ayuda","loadinghelp":"Cargando...","cancel":"Cancelar","confirm":"Confirmar","areyousure":"\u00bfEst\u00e0 seguro?","closebuttontitle":"Cerrar","unknownerror":"Error desconocido","changesmadereallygoaway":"Ha realizado cambios. \u00bfSeguro que quiere salir y perder los cambios?"},"repository":{"type":"Tipo","size":"Tama\u00f1o","invalidjson":"Cadena JSON no v\u00e1lida","nofilesattached":"No se han adjuntado archivos","filepicker":"Selector de archivos","logout":"Salir","nofilesavailable":"No hay archivos disponibles","norepositoriesavailable":"Lo sentimos, ninguno de sus repositorios actuales puede devolver archivos en el formato solicitado.","fileexistsdialogheader":"El archivo existe","fileexistsdialog_editor":"Un archivo con el mismo nombre ya se ha adjuntado al texto que est\u00e1 editando.","fileexistsdialog_filemanager":"Un archivo con ese nombre ya ha sido adjuntado","renameto":"Cambiar el nombre a \"{$a}\"","referencesexist":"Existen {$a} archivos de alias\/atajos que emplean este archivo como su or\u00edgen","select":"Seleccionar"},"admin":{"confirmdeletecomments":"Est\u00e1 a punto de eliminar comentarios, \u00bfest\u00e1 seguro?","confirmation":"Confirmaci\u00f3n"},"block":{"addtodock":"Minimizar en la barra lateral","undockitem":"Desacoplar este \u00edtem","dockblock":"Acoplar bloque {$a}","undockblock":"Desacoplar bloque {$a}","undockall":"Desacoplar todo","hidedockpanel":"Esconder el panel desacoplado","hidepanel":"Esconder panel"},"langconfig":{"thisdirectionvertical":"btt"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {M.util.load_flowplayer();
+setTimeout("fix_column_widths()", 20);
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\n\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"es"});
+});
+Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+});
+function legacy_activity_onclick_handler_1(e) { e.halt(); window.open('https://moodle.uam.es/mod/resource/view.php?id=720150&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+M.util.help_popups.setup(Y);
+Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+});
+M.util.init_skiplink(Y);
+M.util.init_block_hider(Y, {"id":"inst263717","title":"Encuestas Web Sigma","preference":"block263717hidden","tooltipVisible":"Oculta bloque Encuestas Web Sigma","tooltipHidden":"Muestra bloque Encuestas Web Sigma"});
+M.util.init_block_hider(Y, {"id":"inst4","title":"Navegaci\u00f3n","preference":"block4hidden","tooltipVisible":"Oculta bloque Navegaci\u00f3n","tooltipHidden":"Muestra bloque Navegaci\u00f3n"});
+M.util.init_block_hider(Y, {"id":"inst5","title":"Administraci\u00f3n","preference":"block5hidden","tooltipVisible":"Oculta bloque Administraci\u00f3n","tooltipHidden":"Muestra bloque Administraci\u00f3n"});
+ M.util.js_pending('random5a2297ee3f49431'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5a2297ee3f49431'); });
+})();
+//]]>
+</script>
+
+
+</body></html>
+<!-- Essential theme version: 2016061720 is developed by Gareth J Barnard: about.me/gjbarnard -->
