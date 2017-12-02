@@ -283,8 +283,7 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
 
     /*Agregamos los datos*/
     memcpy(segmento + pos, mensaje, sizeof(char)*longitud);
-    pos+=sizeof(mensaje);
-
+    
 	return protocolos_registrados[protocolo_inferior](segmento,long_udp,pila_protocolos,parametros);
 }
 
@@ -320,14 +319,41 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	Parametros ipdatos=*((Parametros*)parametros);
 	uint8_t* IP_destino=ipdatos.IP_destino;
 
-//TODO
+    if(longitud > IP_DATAGRAM_MAX-IP_HLEN){
+        printf("Error: mensaje demasiado grande para IP (%d).\n", IP_DATAGRAM_MAX-IP_HLEN);
+		return ERROR;
+    }
+
+    /*Agregamos la version y el IHL */
+    aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
+    memcpy(segmento,aux8,sizeof(uint8_t));
+    pos+=sizeof(uint8_t);
+
+    /*Agregamos campo tipo de servicio a cero*/
+    aux8 = 0;
+    memcpy(segmento+pos,aux8,sizeof(uint8_t));
+    pos+=sizeof(uint8_t);
+
+    /*Agregamos la longitud*/
+    aux16 = IP_HLEN + longitud;
+    aux16 = htons(aux16);
+    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+
+    /*Agregamos el identificador*/
+    aux16 = htons(ID);
+    ID++; /*Lo incrementamos para el siguiente paquete*/
+    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+    
+    //TODO
 //Llamar a ARPrequest(·) adecuadamente y usar ETH_destino de la estructura parametros
 //[...] 
 //TODO A implementar el datagrama y fragmentación (en caso contrario, control de tamano)
 //[...] 
 //llamada/s a protocolo de nivel inferior [...]
-
-
+    
+    /*GESTIONAR QUE MAC HAY QUE COLOCAR EN PARAMETROS (IPMASCARA Y ARPREQUEST)*/
 }
 
 
@@ -343,23 +369,23 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 ****************************************************************************************/
 
 uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
-//TODO
-//[....]
-//[...] Variables del modulo
-uint8_t trama[ETH_FRAME_MAX]={0};
+    //TODO
+    //[....]
+    //[...] Variables del modulo
+    uint8_t trama[ETH_FRAME_MAX]={0};
 
-printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
+    printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
 
-//TODO
-//[...] Control de tamano
+    //TODO
+    //[...] Control de tamano
 
-//TODO
-//[...] Cabecera del modulo
+    //TODO
+    //[...] Cabecera del modulo
 
-//TODO
-//Enviar a capa fisica [...]  
-//TODO
-//Almacenamos la salida por cuestiones de debugging [...]
+    //TODO
+    //Enviar a capa fisica [...]  
+    //TODO
+    //Almacenamos la salida por cuestiones de debugging [...]
 	
 	return OK;
 }
