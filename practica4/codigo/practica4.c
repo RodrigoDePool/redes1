@@ -10,7 +10,8 @@ Compila con warning pues falta usar variables y modificar funciones
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>Recordar que la informacion tiene que ir en cantidad par de caracteres?)
+#include <string.h>
+#include <getopt.h>
 #include "interface.h"
 #include "practica4.h"
 
@@ -40,6 +41,7 @@ int main(int argc, char **argv){
 	uint16_t pila_protocolos[CADENAS];
     FILE *file_in;
 
+    
 	int long_index=0;
 	char opt;
 	char flag_iface = 0, flag_ip = 0, flag_port = 0, flag_file = 0;
@@ -105,7 +107,14 @@ int main(int argc, char **argv){
 					}
                     fclose(file_in);
                 }
-                //TODO: Tiene que ser par?
+                /*If para asegurarnos de que hay cantidad par de caracteres*/
+                if(strlen(data)%2 != 0){
+                    /*La longitud maxima es 65535 (65534 caracteres)*/
+                    /*Si entra en este if, NO tiene longitud maxima */
+                    strcat(data," ");
+
+                }
+
                 flag_file = 1;
 
 				break;
@@ -236,6 +245,7 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
 	uint16_t aux16;
 	uint32_t pos=0;
 	uint16_t protocolo_inferior=pila_protocolos[1];
+    uint16_t long_udp;
     printf("modulo UDP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	if (longitud>UDP_SEG_MAX-UDP_HLEN){
@@ -260,11 +270,22 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
     memcpy(segmento+pos,&aux16,sizeof(uint16_t));
     pos+=sizeof(uint16_t);
 
-    
-//TODO Completar el segmento [...]
-//[...] 
-//Se llama al protocolo definido de nivel inferior a traves de los punteros registrados en la tabla de protocolos registrados
-	return protocolos_registrados[protocolo_inferior](segmento,longitud+pos,pila_protocolos,parametros);
+    /*Agregamos tamanio de paquete UDP*/
+    long_udp = UDP_HLEN + (uint16_t)longitud;
+    aux16 = htons(long_udp);
+    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+
+    /*Agregamos la suma de control a 0*/
+    aux16=0;
+    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+
+    /*Agregamos los datos*/
+    segmento+pos=mensaje;
+    pos+=sizeof(mensaje);
+
+	return protocolos_registrados[protocolo_inferior](segmento,long_udp,pila_protocolos,parametros);
 }
 
 
