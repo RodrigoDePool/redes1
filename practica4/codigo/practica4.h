@@ -44,7 +44,7 @@
 #define IP_PROTO 0x0800		// Identificador protocolo UDP	
 
 #define UDP_HLEN 8	      	// Tamano de cabecera UDP	
-#define UDP_SEG_MAX 65536  	// Tamano maximo segmento UDP
+#define UDP_SEG_MAX 65535  	// Tamano maximo segmento UDP
 #define UDP_PROTO 17		// Identificador protocolo UDP
 
 #define ICMP_PROTO 1		// Identificador protocolo ICMP
