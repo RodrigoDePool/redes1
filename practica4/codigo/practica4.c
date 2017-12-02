@@ -404,7 +404,6 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
 
 uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
 	uint8_t datagrama[IP_DATAGRAM_MAX]={0};
-	uint16_t suma_control=0;
 	uint16_t aux16;
 	uint32_t pos=0, checksum_pos;
     uint16_t checksum;
@@ -428,15 +427,15 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     *(datagrama + pos) = htons((uint16_t)rand());
     pos += sizeof(uint16_t);
     /* Mensaje*/
-    memcpy(datagrama+pos, mensaje, sizeof(char)*strlen(mensaje));
-    pos += sizeof(char)*strlen(mensaje);
+    memcpy(datagrama+pos, mensaje, longitud);
+    pos += sizeof(char)*longitud;
     /* Modificamos checksum */
-    if (calcularChecksum(pos, &datagrama, (uint8_t *)(&checksum)) == ERROR){
+    if (calcularChecksum(pos, datagrama, (uint8_t *)(&checksum)) == ERROR){
         return ERROR;
     }
     /* TODO Que el checksum me lo den "en orden de red" (ver cabecera de su función) implica que ya no uso htons?*/ 
     aux16 = htons(checksum);
-    memcpy(datagrama+checksum_pos, aux16, sizeof(uint16_t));
+    memcpy(datagrama+checksum_pos, &aux16, sizeof(uint16_t));
     
     icmp_long = (uint16_t)longitud + ICMP_HLEN;
 	return protocolos_registrados[protocolo_inferior](datagrama, icmp_long, pila_protocolos, parametros);
