@@ -105,9 +105,8 @@ int main(int argc, char **argv){
 					}
                     fclose(file_in);
                 }
-                
-                
-				flag_file = 1;
+                //TODO: Tiene que ser par?
+                flag_file = 1;
 
 				break;
 
