@@ -344,6 +344,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     memcpy(segmento+pos,&aux8,sizeof(uint8_t));
     pos+=sizeof(uint8_t);
 
+    /*ESTO CAMBIARIA CON LA FRAGMENTACION*/
     /*Agregamos la longitud*/
     aux16 = IP_HLEN + longitud;
     aux16 = htons(aux16);
