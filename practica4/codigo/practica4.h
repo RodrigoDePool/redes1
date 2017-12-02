@@ -39,7 +39,8 @@
 #define ETH_PROTO 0 		// Capa de enlace relativa al interface, le asignamos arbitrariamente el 0
 
 #define IP_ALEN 4		// Tamano de direccion IP
-#define IP_DATAGRAM_MAX 65536 	// Tamano maximo datagrama IP 
+#define IP_DATAGRAM_MAX 65535 	// Tamano maximo datagrama IP 
+#define IP_HLEN 20    // Tamanio en bytes de cabecera IP
 #define IP_PROTO 0x0800		// Identificador protocolo UDP	
 
 #define UDP_HLEN 8	      	// Tamano de cabecera UDP	

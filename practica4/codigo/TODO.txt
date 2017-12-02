@@ -1,0 +1,16 @@
+Protocolo ICMP
+Protocolo UDP
+Protocolo ETH
+Protocolo IP
+aplicarMascara
+
+
+
+LISTA DE COSAS HECHAS POR R:
+
+
+Estos son cambios que hice que no estoy del todos eguro si estan bien:
+- Cambie el IPDATAGRAM_MAX por 65535 (antes era 65536 )
+Como el data es el string que se agrega al paquete enviado hice esto
+- Agregue define IP_HLEN 20
+- Puse que el data tuviera tamanio maximo 65535-20- UDP_HEADERLEN
