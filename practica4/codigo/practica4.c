@@ -95,7 +95,7 @@ int main(int argc, char **argv){
 					sprintf(fichero_pcap_destino,"%s%s","stdin",".pcap");
 				} else {
 					sprintf(fichero_pcap_destino,"%s%s",optarg,".pcap");
-                    file_in = fopen(optarg,'r');
+                    file_in = fopen(optarg,"r");
                     if (file_in == NULL){
                         printf("Error leyendo el fichero %s: %s %s %d.\n",optarg,errbuf,__FILE__,__LINE__);
                         return ERROR;
@@ -175,7 +175,7 @@ int main(int argc, char **argv){
 		//Rellenamos los parametros necesario para enviar el paquete a su destinatario y proceso
 	Parametros parametros_udp; memcpy(parametros_udp.IP_destino,IP_destino_red,IP_ALEN); parametros_udp.puerto_destino=puerto_destino;
 		//Enviamos
-	if(enviar((uint8_t*)data,pila_protocolos,strlen(data),&parametros_udp)==ERROR ){
+	if(enviar((uint8_t*)data,strlen(data),pila_protocolos,&parametros_udp)==ERROR ){
 		printf("Error: enviar(): %s %s %d.\n",errbuf,__FILE__,__LINE__);
 		return ERROR;
 	}
@@ -186,7 +186,7 @@ int main(int argc, char **argv){
 		//Luego, un paquete ICMP en concreto un ping
 	pila_protocolos[0]=ICMP_PROTO; pila_protocolos[1]=IP_PROTO; pila_protocolos[2]=0;
 	Parametros parametros_icmp; parametros_icmp.tipo=PING_TIPO; parametros_icmp.codigo=PING_CODE; memcpy(parametros_icmp.IP_destino,IP_destino_red,IP_ALEN);
-	if(enviar((uint8_t*)"Probando a hacer un ping",pila_protocolos,strlen("Probando a hacer un ping"),&parametros_icmp)==ERROR ){
+	if(enviar((uint8_t*)"Probando a hacer un ping",strlen("Probando a hacer un ping"),pila_protocolos,&parametros_icmp)==ERROR ){
 		printf("Error: enviar(): %s %s %d.\n",errbuf,__FILE__,__LINE__);
 		return ERROR;
 	}
@@ -249,7 +249,7 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
     printf("modulo UDP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	if (longitud>UDP_SEG_MAX-UDP_HLEN){
-		printf("Error: mensaje demasiado grande para UDP (%f).\n",UDP_SEG_MAX-UDP_HLEN);
+		printf("Error: mensaje demasiado grande para UDP (%d).\n",UDP_SEG_MAX-UDP_HLEN);
 		return ERROR;
 	}
 
@@ -282,9 +282,8 @@ uint8_t moduloUDP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,
     pos+=sizeof(uint16_t);
 
     /*Agregamos los datos*/
-    segmento+pos=mensaje;
-    pos+=sizeof(mensaje);
-
+    memcpy(segmento + pos, mensaje, sizeof(char)*longitud);
+    
 	return protocolos_registrados[protocolo_inferior](segmento,long_udp,pila_protocolos,parametros);
 }
 
@@ -315,19 +314,46 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	pila_protocolos++;
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
 
-printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
+    printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	Parametros ipdatos=*((Parametros*)parametros);
 	uint8_t* IP_destino=ipdatos.IP_destino;
 
-//TODO
+    if(longitud > IP_DATAGRAM_MAX-IP_HLEN){
+        printf("Error: mensaje demasiado grande para IP (%d).\n", IP_DATAGRAM_MAX-IP_HLEN);
+		return ERROR;
+    }
+
+    /*Agregamos la version y el IHL */
+    aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
+    memcpy(segmento,aux8,sizeof(uint8_t));
+    pos+=sizeof(uint8_t);
+
+    /*Agregamos campo tipo de servicio a cero*/
+    aux8 = 0;
+    memcpy(segmento+pos,aux8,sizeof(uint8_t));
+    pos+=sizeof(uint8_t);
+
+    /*Agregamos la longitud*/
+    aux16 = IP_HLEN + longitud;
+    aux16 = htons(aux16);
+    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+
+    /*Agregamos el identificador*/
+    aux16 = htons(ID);
+    ID++; /*Lo incrementamos para el siguiente paquete*/
+    memcpy(segmento+pos,aux16,sizeof(uint16_t));
+    pos+=sizeof(uint16_t);
+    
+    //TODO
 //Llamar a ARPrequest(·) adecuadamente y usar ETH_destino de la estructura parametros
 //[...] 
 //TODO A implementar el datagrama y fragmentación (en caso contrario, control de tamano)
 //[...] 
 //llamada/s a protocolo de nivel inferior [...]
-
-
+    
+    /*GESTIONAR QUE MAC HAY QUE COLOCAR EN PARAMETROS (IPMASCARA Y ARPREQUEST)*/
 }
 
 
@@ -343,23 +369,23 @@ printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 ****************************************************************************************/
 
 uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
-//TODO
-//[....]
-//[...] Variables del modulo
-uint8_t trama[ETH_FRAME_MAX]={0};
+    //TODO
+    //[....]
+    //[...] Variables del modulo
+    uint8_t trama[ETH_FRAME_MAX]={0};
 
-printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
+    printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
 
-//TODO
-//[...] Control de tamano
+    //TODO
+    //[...] Control de tamano
 
-//TODO
-//[...] Cabecera del modulo
+    //TODO
+    //[...] Cabecera del modulo
 
-//TODO
-//Enviar a capa fisica [...]  
-//TODO
-//Almacenamos la salida por cuestiones de debugging [...]
+    //TODO
+    //Enviar a capa fisica [...]  
+    //TODO
+    //Almacenamos la salida por cuestiones de debugging [...]
 	
 	return OK;
 }
@@ -504,11 +530,11 @@ uint8_t inicializarPilaEnviar() {
 		return ERROR;
 	if(registrarProtocolo(IP_PROTO, moduloIP, protocolos_registrados)==ERROR)
 		return ERROR;
-	
-//TODO
-//A registrar los modulos de UDP y ICMP [...] 
-
-	return OK;
+    if(registrarProtocolo(UDP_PROTO, moduloUDP, protocolos_registrados)==ERROR)
+        return ERROR;
+    if(registrarProtocolo(ICMP_PROTO, moduloICMP, protocolos_registrados)==ERROR)
+        return ERROR;
+    return OK;
 }
 
 
