@@ -312,7 +312,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	uint16_t protocolo_superior=pila_protocolos[0];
 	uint16_t protocolo_inferior=pila_protocolos[2];
 	pila_protocolos++;
-	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
+	uint8_t mascara[IP_ALEN]; /*IP_rango_origen[IP_ALEN], IP_rango_destino[IP_ALEN];*/
     uint8_t IP_gateway[IP_ALEN], localNet[IP_ALEN];
     uint16_t MTU,offset,flags,i;
     uint64_t tam_envio;
@@ -377,7 +377,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     
     for(i = 0; i < longitud; i += tam_envio){
         /*Limpiamos el datagrama en cada envio*/
-        datagrama={0};
+        memset(datagrama, 0, IP_DATAGRAM_MAX * sizeof(uint8_t));
         
         /*Agregamos la version y el IHL */
         aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
@@ -408,7 +408,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         if( (i + tam_envio) >= longitud){/*Ultimo fragmento*/
             flags = 0; /* 0x0000 */
         }else{
-            flags=8192 /* 0x2000*/
+            flags=8192; /* 0x2000*/
         }
         offset = i/8;
         aux16 = flags | offset;
@@ -422,7 +422,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         pos+=sizeof(uint8_t);
 
         /*Protocolo*/
-        aux8=protocolo_inferior;
+        aux8=protocolo_superior;
         memcpy(datagrama+pos,&aux8,sizeof(uint8_t));
         pos+=sizeof(uint8_t);
         /*guardamos la posicion antes del checksum en un control*/
@@ -431,20 +431,23 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         
         /*Continuamos con la ip origen*/
         pos+=sizeof(uint8_t);
-        aux32=*((uint32_t *)ipdatos.IP_origen);
-        aux32=htons(aux32);
+        if(obtenerIPInterface(interface, (uint8_t *)( &aux32)) == ERROR){
+            printf("Error obteniendo la IP de la interfaz\n");
+            return ERROR;
+        }
+        
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
         
         /*ip destino*/
         pos+=sizeof(uint8_t);
         aux32=*((uint32_t *)ipdatos.IP_destino);
-        aux32=htons(aux32);
+        aux32=htonl(aux32);
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
         
         /*rellenamos el checksum*/
-        if( calcularChecksum(datagrama,IP_HLEN,(uint8_t *)aux16) == ERROR){
+        if( calcularChecksum(IP_HLEN, datagrama, (uint8_t *)(&aux16)) == ERROR){
             printf("Error al calcular el checksum de ip.\n");
             return ERROR;
         }
@@ -484,6 +487,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     uint8_t trama[ETH_FRAME_MAX]={0};
     uint32_t pos = 0;
     uint64_t mac; /*No hay de 48 :( */
+    uint16_t protocolo_superior=pila_protocolos[1];
     Parametros ethdatos = *((Parametros *)parametros);
     
     struct pcap_pkthdr hdr;
@@ -499,7 +503,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
 
     /*NOTA: las MACs ya estan en orden de red*/
     /*Aniadimos MAC origen*/
-    if(obtenerMACdeInterface(interface, &mac) == ERROR){
+    if(obtenerMACdeInterface(interface, (uint8_t *)(&mac)) == ERROR){
         printf("Error obteniendo mac origen");
         return ERROR;
     }
@@ -509,7 +513,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     memcpy(trama + pos, &(ethdatos.ETH_destino), ETH_ALEN);
     pos += ETH_ALEN;
     /*Aniadimos tipo ethernet*/
-    memcpy(trama + pos, pila_protocolos+1, sizeof(uint16_t));
+    memcpy(trama + pos, &protocolo_superior, sizeof(uint16_t));
     pos += sizeof(uint16_t);
     /*Aniadimos datagrama*/
     memcpy(trama+pos, datagrama, longitud);
@@ -526,7 +530,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     hdr.len = longitud + ETH_HLEN;
     hdr.caplen = hdr.len;
 
-    pcap_dump(pdumper, &hdr, trama);
+    pcap_dump((u_char *)pdumper, &hdr, trama);
     return OK;
 }
 
@@ -544,7 +548,6 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
 
 uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
 	uint8_t datagrama[IP_DATAGRAM_MAX]={0};
-	uint16_t aux16;
 	uint32_t pos=0, checksum_pos;
     uint16_t checksum;
     uint16_t icmp_long;
