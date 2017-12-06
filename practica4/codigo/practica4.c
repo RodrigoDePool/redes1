@@ -512,10 +512,12 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     memcpy(trama + pos, &(ethdatos.tipo), sizeof(uint16_t));
     pos += sizeof(uint16_t);
 
-    pcap_sendpacket(descr, trama, (longitud + ETH_ALEN));
-    //TODO
-    //Almacenamos la salida por cuestiones de debugging [...]
-	
+    if(pcap_sendpacket(descr, trama, (longitud + ETH_ALEN)) == -1){
+        printf("Error enviando paquete\n");
+        return ERROR;
+    }
+    //TODO  Otra duda: xq descr2 es global si no la uso? Deberia estar usandose? 
+    pcap_dump(pdumper, , ); /*Faltan pcap_pkthdr y puntero al paquete*/
 	return OK;
 }
 
