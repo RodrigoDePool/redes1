@@ -431,11 +431,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         
         /*Continuamos con la ip origen*/
         pos+=sizeof(uint8_t);
-        if(obtenerIPInterface(interface, (uint8_t *)( &aux32)) == ERROR){
-            printf("Error obteniendo la IP de la interfaz\n");
-            return ERROR;
-        }
-        
+        aux32=*((uint32_t *) IP_origen);
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
         
