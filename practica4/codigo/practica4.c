@@ -335,6 +335,10 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         printf("Error: el ip origen no se obtuvo con exito,\n");
         return ERROR;
     }
+    /*DEBUGGING*/
+    printf("%"SCNu8".%"SCNu8".%"SCNu8".%"SCNu8"",
+                                   &(IP_origen[0]),&(IP_origen[1]),&(IP_origen[2]),&(IP_origen[3]));
+    /**/
     if(obtenerMascaraInterface(interface,mascara)==ERROR){
         printf("Error: no se pudo obtener la mascara de red.\n");
         return ERROR;
