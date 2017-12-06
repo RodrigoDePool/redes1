@@ -314,9 +314,9 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	pila_protocolos++;
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
     uint8_t IP_gateway[IP_ALEN], localNet[IP_ALEN];
-    uint16_t MTU;
+    uint16_t MTU,offset,flags,i;
     uint64_t tam_envio;
-    int i; 
+    
 
     printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
@@ -376,15 +376,17 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     tam_envio *= 8;
     
     for(i = 0; i < longitud; i += tam_envio){
-
+        /*Limpiamos el datagrama en cada envio*/
+        datagrama={0};
+        
         /*Agregamos la version y el IHL */
         aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
-        memcpy(segmento,&aux8,sizeof(uint8_t));
+        memcpy(datagrama,&aux8,sizeof(uint8_t));
         pos+=sizeof(uint8_t);
 
         /*Agregamos campo tipo de servicio a cero*/
         aux8 = 0;
-        memcpy(segmento+pos,&aux8,sizeof(uint8_t));
+        memcpy(datagrama+pos,&aux8,sizeof(uint8_t));
         pos+=sizeof(uint8_t);
 
         /*Longitud total*/
@@ -394,22 +396,76 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
             aux16 = tam_envio + IP_HLEN;
         }
         aux16 = htons(aux16);
-        memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+        memcpy(datagrama+pos,&aux16,sizeof(uint16_t));
         pos+=sizeof(uint16_t);
 
         /*Agregamos el identificador*/
         aux16 = htons(ID);
-        ID++; /*Lo incrementamos para el siguiente paquete*/
-        memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+        memcpy(datagrama+pos,&aux16,sizeof(uint16_t));
         pos+=sizeof(uint16_t);    
-    
+
+        /*flags + posicion*/
+        if( (i + tam_envio) >= longitud){/*Ultimo fragmento*/
+            flags = 0; /* 0x0000 */
+        }else{
+            flags=8192 /* 0x2000*/
+        }
+        offset = i/8;
+        aux16 = flags | offset;
+        aux16 = htons(aux16);
+        memcpy(datagrama+pos,&aux16,sizeof(uint16_t));
+        pos+=sizeof(uint16_t);
+
+        /*TTL*/
+        aux8=64;/*time to live usual*/
+        memcpy(datagrama+pos,&aux8,sizeof(uint8_t));
+        pos+=sizeof(uint8_t);
+
+        /*Protocolo*/
+        aux8=protocolo_inferior;
+        memcpy(datagrama+pos,&aux8,sizeof(uint8_t));
+        pos+=sizeof(uint8_t);
+        /*guardamos la posicion antes del checksum en un control*/
+        pos_control=pos;
+
+        
+        /*Continuamos con la ip origen*/
+        pos+=sizeof(uint8_t);
+        aux32=*((uint32_t *)ipdatos.IP_origen);
+        aux32=htons(aux32);
+        memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
+        pos+=sizeof(uint32_t);
+        
+        /*ip destino*/
+        pos+=sizeof(uint8_t);
+        aux32=*((uint32_t *)ipdatos.IP_destino);
+        aux32=htons(aux32);
+        memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
+        pos+=sizeof(uint32_t);
+        
+        /*rellenamos el checksum*/
+        if( calcularChecksum(datagrama,IP_HLEN,(uint8_t *)aux16) == ERROR){
+            printf("Error al calcular el checksum de ip.\n");
+            return ERROR;
+        }
+        memcpy(datagrama+pos_control,&aux16,sizeof(uint16_t));
+               
+       /*Agregamos datos*/
+        if( (i + tam_envio) >= longitud){/*Ultimo fragmento*/
+            aux16 = longitud - i;
+        }else{
+            aux16 = tam_envio;
+        }
+        memcpy(datagrama+pos,segmento+i,aux16);
+
+        /*Enviamos paquete al siguiente nivel de la pila*/
+        if(protocolos_registrados[protocolo_inferior](datagrama,aux16+IP_HLEN,pila_protocolos,parametros) == ERROR){
+            printf("Error al enviar fragmento ip.\n");
+            return ERROR;
+        }
     }
-    
-    /*ESTO CAMBIARIA CON LA FRAGMENTACION*/
-    /*Agregamos la longitud*/
-    aux16 = IP_HLEN + longitud;
-       //llamada/s a protocolo de nivel inferior [...]
-    
+    ID++; /*Incrementamos el identificador*/
+    return OK;
 }
 
 
@@ -491,9 +547,7 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     if (calcularChecksum(pos, datagrama, (uint8_t *)(&checksum)) == ERROR){
         return ERROR;
     }
-    /* TODO Que el checksum me lo den "en orden de red" (ver cabecera de su función) implica que ya no uso htons?*/ 
-    aux16 = htons(checksum);
-    memcpy(datagrama+checksum_pos, &aux16, sizeof(uint16_t));
+    memcpy(datagrama+checksum_pos, &checksum, sizeof(uint16_t));
     
     icmp_long = (uint16_t)longitud + ICMP_HLEN;
 	return protocolos_registrados[protocolo_inferior](datagrama, icmp_long, pila_protocolos, parametros);
