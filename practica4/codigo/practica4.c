@@ -184,7 +184,7 @@ int main(int argc, char **argv){
 	printf("Enviado mensaje %"PRIu64", almacenado en %s\n\n\n", cont,fichero_pcap_destino);
 
 		//Luego, un paquete ICMP en concreto un ping
-	pila_protocolos[0]=ICMP_PROTO; pila_protocolos[1]=IP_PROTO; pila_protocolos[2]=0;
+	pila_protocolos[0]=ICMP_PROTO; pila_protocolos[1]=IP_PROTO; pila_protocolos[2]=0; /*0 es ETH_PROTO*/
 	Parametros parametros_icmp; parametros_icmp.tipo=PING_TIPO; parametros_icmp.codigo=PING_CODE; memcpy(parametros_icmp.IP_destino,IP_destino_red,IP_ALEN);
 	if(enviar((uint8_t*)"Probando a hacer un ping",strlen("Probando a hacer un ping"),pila_protocolos,&parametros_icmp)==ERROR ){
 		printf("Error: enviar(): %s %s %d.\n",errbuf,__FILE__,__LINE__);
@@ -485,14 +485,32 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     //[....]
     //[...] Variables del modulo
     uint8_t trama[ETH_FRAME_MAX]={0};
+    uint32_t pos = 0;
+    uint64_t mac; /*No hay de 48 :( */
+    Parametros ethdatos = *((Parametros *)parametros);
 
     printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
 
-    //TODO
-    //[...] Control de tamano
+ 
+    if(longitud > ETH_FRAME_MAX-ETH_HLEN){
+        printf("Error: mensaje demasiado grande para ETH (%d).\n", ETH_FRAME_MAX-ETH_HLEN);
+		return ERROR;
+    }
 
-    //TODO
-    //[...] Cabecera del modulo
+    /*NOTA: las MACs ya estan en orden de red*/
+    /*Aniadimos MAC origen*/
+    if(obtenerMACdeInterface(interface, &mac) == ERROR){
+        printf("Error obteniendo mac origen");
+        return ERROR;
+    }
+    memcpy(trama + pos, &mac, ETH_ALEN);
+    pos += ETH_ALEN;
+    /*Aniadimos MAC destino*/
+    memcpy(trama + pos, &(ethdatos.ETH_destino), ETH_ALEN);
+    pos += ETH_ALEN;
+    /*Aniadimos tipo ethernet TODO ASUMO QUE PROTOCOLO SUPERIOR HA PUESTO AQUI SU TIPO*/
+    memcpy(trama + pos, &(ethdatos.tipo), sizeof(uint16_t));
+    pos += sizeof(uint16_t);
 
     //TODO
     //Enviar a capa fisica [...]  
@@ -523,8 +541,10 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
 	uint16_t protocolo_inferior=pila_protocolos[1];
 	Parametros icmpdatos=*((Parametros*)parametros);
     
-    /*TODO CONTROL TAMAÑO*/
-
+    if(longitud > ICMP_DATAGRAM_MAX-ICMP_HLEN){
+        printf("Error: mensaje demasiado grande para ICMP (%d).\n", ICMP_DATAGRAM_MAX-ICMP_HLEN);
+		return ERROR;
+    }
     memcpy(datagrama, &(icmpdatos.tipo), sizeof(uint8_t) );
     pos += sizeof(uint8_t);
     memcpy(datagrama+pos, &(icmpdatos.codigo), sizeof(uint8_t) );
@@ -533,7 +553,7 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     /*Checksum*/
     *(datagrama + pos) = (uint8_t)0;
     pos += sizeof(uint8_t);
-    /* Identificador (aleatorio)- sera el mismo en cada ejecucion,
+    /* Identificador (aleatorio)- misma semilla en cada ejecucion,
      * pero como no tiene más uso en la práctica lo dejamos así*/
     *(datagrama + pos) = htons((uint16_t)rand());
     pos += sizeof(uint16_t);
