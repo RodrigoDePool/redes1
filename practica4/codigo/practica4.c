@@ -481,13 +481,13 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 ****************************************************************************************/
 
 uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocolos,void *parametros){
-    //TODO
-    //[....]
-    //[...] Variables del modulo
     uint8_t trama[ETH_FRAME_MAX]={0};
     uint32_t pos = 0;
     uint64_t mac; /*No hay de 48 :( */
     Parametros ethdatos = *((Parametros *)parametros);
+    
+    struct pcap_pkthdr hdr;
+    struct timeval tv;
 
     printf("modulo ETH(fisica) %s %d.\n",__FILE__,__LINE__);	
 
@@ -520,8 +520,14 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
         return ERROR;
     }
     //TODO  Otra duda: xq descr2 es global si no la uso? Deberia estar usandose? 
-    pcap_dump(pdumper, , ); /*Faltan pcap_pkthdr y puntero al paquete*/
-	return OK;
+    /*Rellenamos la cabecera*/
+    gettimeofday(&tv, NULL);
+    hdr.ts = tv;
+    hdr.len = longitud + ETH_HLEN;
+    hdr.caplen = hdr.len;
+
+    pcap_dump(pdumper, &hdr, trama);
+    return OK;
 }
 
 
