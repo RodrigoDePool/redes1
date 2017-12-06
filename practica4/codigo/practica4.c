@@ -442,7 +442,6 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         /*ip destino*/
         pos+=sizeof(uint8_t);
         aux32=*((uint32_t *)ipdatos.IP_destino);
-        aux32=htonl(aux32);
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
         
