@@ -336,8 +336,8 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         return ERROR;
     }
     /*DEBUGGING*/
-    printf("%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8"",
-                                   &(IP_origen[0]),&(IP_origen[1]),&(IP_origen[2]),&(IP_origen[3]));
+    printf("%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8" \n",
+                                   (IP_origen[0]),(IP_origen[1]),(IP_origen[2]),(IP_origen[3]));
     /**/
     if(obtenerMascaraInterface(interface,mascara)==ERROR){
         printf("Error: no se pudo obtener la mascara de red.\n");
