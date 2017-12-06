@@ -315,7 +315,9 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 	uint8_t mascara[IP_ALEN],IP_rango_origen[IP_ALEN],IP_rango_destino[IP_ALEN];
     uint8_t IP_gateway[IP_ALEN], localNet[IP_ALEN];
     uint16_t MTU;
-    
+    uint64_t tam_envio;
+    int i; 
+
     printf("modulo IP(%"PRIu16") %s %d.\n",protocolo_inferior,__FILE__,__LINE__);
 
 	Parametros ipdatos=*((Parametros*)parametros);
@@ -368,31 +370,45 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
 
     
     /*BUCLE DE FRAGMENTACION DE MTU*/
+    tam_envio = MTU - IP_HLEN;
+    /*Obtenemos max multiplo de 8 menor que tam_envio. Aprovechamos el truncamiento de division entera*/
+    tam_envio /= 8;
+    tam_envio *= 8;
     
-    /*Agregamos la version y el IHL */
-    aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
-    memcpy(segmento,&aux8,sizeof(uint8_t));
-    pos+=sizeof(uint8_t);
+    for(i = 0; i < longitud; i += tam_envio){
 
-    /*Agregamos campo tipo de servicio a cero*/
-    aux8 = 0;
-    memcpy(segmento+pos,&aux8,sizeof(uint8_t));
-    pos+=sizeof(uint8_t);
+        /*Agregamos la version y el IHL */
+        aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
+        memcpy(segmento,&aux8,sizeof(uint8_t));
+        pos+=sizeof(uint8_t);
 
+        /*Agregamos campo tipo de servicio a cero*/
+        aux8 = 0;
+        memcpy(segmento+pos,&aux8,sizeof(uint8_t));
+        pos+=sizeof(uint8_t);
+
+        /*Longitud total*/
+        if( (i + tam_envio) >= longitud){/*Ultimo fragmento*/
+            aux16 = longitud - i + IP_HLEN;
+        }else{
+            aux16 = tam_envio + IP_HLEN;
+        }
+        aux16 = htons(aux16);
+        memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+        pos+=sizeof(uint16_t);
+
+        /*Agregamos el identificador*/
+        aux16 = htons(ID);
+        ID++; /*Lo incrementamos para el siguiente paquete*/
+        memcpy(segmento+pos,&aux16,sizeof(uint16_t));
+        pos+=sizeof(uint16_t);    
+    
+    }
+    
     /*ESTO CAMBIARIA CON LA FRAGMENTACION*/
     /*Agregamos la longitud*/
     aux16 = IP_HLEN + longitud;
-    aux16 = htons(aux16);
-    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
-    pos+=sizeof(uint16_t);
-
-    /*Agregamos el identificador*/
-    aux16 = htons(ID);
-    ID++; /*Lo incrementamos para el siguiente paquete*/
-    memcpy(segmento+pos,&aux16,sizeof(uint16_t));
-    pos+=sizeof(uint16_t);    
-
-    //llamada/s a protocolo de nivel inferior [...]
+       //llamada/s a protocolo de nivel inferior [...]
     
 }
 
@@ -451,6 +467,8 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
 	uint16_t protocolo_inferior=pila_protocolos[1];
 	Parametros icmpdatos=*((Parametros*)parametros);
     
+    /*TODO CONTROL TAMAÑO*/
+
     memcpy(datagrama, &(icmpdatos.tipo), sizeof(uint8_t) );
     pos += sizeof(uint8_t);
     memcpy(datagrama+pos, &(icmpdatos.codigo), sizeof(uint8_t) );
