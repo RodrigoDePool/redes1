@@ -560,19 +560,24 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     memcpy(datagrama+pos, &(icmpdatos.codigo), sizeof(uint8_t) );
     pos += sizeof(uint8_t);
     checksum_pos = pos;
+    
     /*Checksum*/
-    *(datagrama + pos) = (uint8_t)0;
-    pos += sizeof(uint8_t);
+    /*lo saltamos y lo agregamos al final*/
+    pos += sizeof(uint16_t);
+    
     /* Identificador (aleatorio)- misma semilla en cada ejecucion,
      * pero como no tiene más uso en la práctica lo dejamos así*/
     *(datagrama + pos) = htons((uint16_t)rand());
     pos += sizeof(uint16_t);
+
     /* Numero se secuencia (mismo comentario que para el identificador)*/
     *(datagrama + pos) = htons((uint16_t)rand());
     pos += sizeof(uint16_t);
+
     /* Mensaje*/
     memcpy(datagrama+pos, mensaje, longitud);
-    pos += sizeof(char)*longitud;
+    pos += sizeof(uint8_t)*longitud;
+    
     /* Modificamos checksum */
     if (calcularChecksum(pos, datagrama, (uint8_t *)(&checksum)) == ERROR){
         return ERROR;
