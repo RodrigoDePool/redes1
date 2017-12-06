@@ -462,7 +462,7 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         memcpy(datagrama+pos,segmento+i,aux16);
 
         /*Enviamos paquete al siguiente nivel de la pila*/
-        if(protocolos_registrados[protocolo_inferior](datagrama,aux16+IP_HLEN,pila_protocolos,parametros) == ERROR){
+        if(protocolos_registrados[protocolo_inferior](datagrama,aux16+IP_HLEN,pila_protocolos,&ipdatos) == ERROR){
             printf("Error al enviar fragmento ip.\n");
             return ERROR;
         }
