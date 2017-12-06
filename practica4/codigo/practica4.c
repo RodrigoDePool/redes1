@@ -508,11 +508,14 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     /*Aniadimos MAC destino*/
     memcpy(trama + pos, &(ethdatos.ETH_destino), ETH_ALEN);
     pos += ETH_ALEN;
-    /*Aniadimos tipo ethernet TODO ASUMO QUE PROTOCOLO SUPERIOR HA PUESTO AQUI SU TIPO*/
-    memcpy(trama + pos, &(ethdatos.tipo), sizeof(uint16_t));
+    /*Aniadimos tipo ethernet*/
+    memcpy(trama + pos, pila_protocolos+1, sizeof(uint16_t));
     pos += sizeof(uint16_t);
+    /*Aniadimos datagrama*/
+    memcpy(trama+pos, datagrama, longitud);
+    pos += longitud;
 
-    if(pcap_sendpacket(descr, trama, (longitud + ETH_ALEN)) == -1){
+    if(pcap_sendpacket(descr, trama, (longitud + ETH_HLEN)) == -1){
         printf("Error enviando paquete\n");
         return ERROR;
     }
