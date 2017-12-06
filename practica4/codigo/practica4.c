@@ -487,7 +487,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     uint8_t trama[ETH_FRAME_MAX]={0};
     uint32_t pos = 0;
     uint64_t mac; /*No hay de 48 :( */
-    uint16_t protocolo_superior=pila_protocolos[1];
+    uint16_t protocolo_superior=pila_protocolos[0];
     Parametros ethdatos = *((Parametros *)parametros);
     
     struct pcap_pkthdr hdr;
@@ -516,7 +516,6 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     pos += ETH_ALEN;
 
     /*Aniadimos tipo ethernet*/
-    printf("%d\n",protocolo_superior);
     memcpy(trama + pos, &protocolo_superior, sizeof(uint16_t));
     pos += sizeof(uint16_t);
     /*Aniadimos datagrama*/
