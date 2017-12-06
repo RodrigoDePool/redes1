@@ -512,8 +512,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     memcpy(trama + pos, &(ethdatos.tipo), sizeof(uint16_t));
     pos += sizeof(uint16_t);
 
-    //TODO
-    //Enviar a capa fisica [...]  
+    pcap_sendpacket(descr, trama, (longitud + ETH_ALEN));
     //TODO
     //Almacenamos la salida por cuestiones de debugging [...]
 	
