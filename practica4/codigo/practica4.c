@@ -335,10 +335,6 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         printf("Error: el ip origen no se obtuvo con exito,\n");
         return ERROR;
     }
-    /*DEBUGGING*/
-    printf("%"PRIu8".%"PRIu8".%"PRIu8".%"PRIu8" \n",
-                                   (IP_origen[3]),(IP_origen[2]),(IP_origen[1]),(IP_origen[0]));
-    /**/
     if(obtenerMascaraInterface(interface,mascara)==ERROR){
         printf("Error: no se pudo obtener la mascara de red.\n");
         return ERROR;
@@ -431,16 +427,14 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
         pos+=sizeof(uint8_t);
         /*guardamos la posicion antes del checksum en un control*/
         pos_control=pos;
-
+        pos+=sizeof(uint16_t); /*saltamos el checksum*/
         
         /*Continuamos con la ip origen*/
-        pos+=sizeof(uint8_t);
         aux32=*((uint32_t *) IP_origen);
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
         
         /*ip destino*/
-        pos+=sizeof(uint8_t);
         aux32=*((uint32_t *)ipdatos.IP_destino);
         memcpy(datagrama+pos,&aux32,sizeof(uint32_t));
         pos+=sizeof(uint32_t);
