@@ -502,6 +502,11 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     }
 
     /*NOTA: las MACs ya estan en orden de red*/
+    
+    /*Aniadimos MAC destino*/
+    memcpy(trama + pos, &(ethdatos.ETH_destino), ETH_ALEN);
+    pos += ETH_ALEN;
+    
     /*Aniadimos MAC origen*/
     if(obtenerMACdeInterface(interface, (uint8_t *)(&mac)) == ERROR){
         printf("Error obteniendo mac origen");
@@ -509,9 +514,7 @@ uint8_t moduloETH(uint8_t* datagrama, uint64_t longitud, uint16_t* pila_protocol
     }
     memcpy(trama + pos, &mac, ETH_ALEN);
     pos += ETH_ALEN;
-    /*Aniadimos MAC destino*/
-    memcpy(trama + pos, &(ethdatos.ETH_destino), ETH_ALEN);
-    pos += ETH_ALEN;
+
     /*Aniadimos tipo ethernet*/
     printf("%d\n",protocolo_superior);
     memcpy(trama + pos, &protocolo_superior, sizeof(uint16_t));
