@@ -376,9 +376,11 @@ uint8_t moduloIP(uint8_t* segmento, uint64_t longitud, uint16_t* pila_protocolos
     tam_envio *= 8;
     
     for(i = 0; i < longitud; i += tam_envio){
-        /*Limpiamos el datagrama en cada envio*/
+
+        /*Limpiamos el datagrama en cada envio y colocamos la pos a cero*/
         memset(datagrama, 0, IP_DATAGRAM_MAX * sizeof(uint8_t));
-        
+        pos=0;
+
         /*Agregamos la version y el IHL */
         aux8 = 69; /*0010 (version 4) 0101 (IHL sin opciones)*/
         memcpy(datagrama,&aux8,sizeof(uint8_t));
@@ -577,7 +579,7 @@ uint8_t moduloICMP(uint8_t* mensaje,uint64_t longitud, uint16_t* pila_protocolos
     /* Mensaje*/
     memcpy(datagrama+pos, mensaje, longitud);
     pos += sizeof(uint8_t)*longitud;
-    
+
     /* Modificamos checksum */
     if (calcularChecksum(pos, datagrama, (uint8_t *)(&checksum)) == ERROR){
         return ERROR;
